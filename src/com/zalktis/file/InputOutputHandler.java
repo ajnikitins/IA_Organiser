@@ -2,39 +2,27 @@
 
 package com.zalktis.file;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class InputOutputHandler {
 
-  public static Object loadObject(String filename) {
+  public static <T> T loadObject(String filename, Class<T> type) {
     var file = new File(filename);
 
-    if (!file.isFile()) {
-      System.out.println("Error: file not found; creating blank...");
-      writeObject(filename, null);
-      return null;
-    }
+//    if (!file.isFile()) {
+//      System.out.println("Error: file not found; creating blank...");
+//      writeObject(filename, null);
+//      return null;
+//    }
 
     try {
-      var fileStream = new FileInputStream(file);
-      var in = new ObjectInputStream(fileStream);
+      var objectMapper = new ObjectMapper();
 
-      Object object = in.readObject();
-
-      in.close();
-      fileStream.close();
-
-      return object;
+      return objectMapper.readValue(file, type);
     } catch (IOException e) {
       System.out.println("Can't access file; exiting...");
-      return null;
-    } catch (ClassNotFoundException e) {
-      System.out.println("Invalid file; exiting...");
       return null;
     }
   }
@@ -43,18 +31,14 @@ public class InputOutputHandler {
     File file = new File(filename);
 
     // Create parent directories if they do not exist
-    if (!file.getParentFile().isDirectory()) {
-      file.getParentFile().mkdirs();
-    }
+//    if (!file.getParentFile().isDirectory()) {
+//      file.getParentFile().mkdirs();
+//    }
 
     try {
-      var fileStream = new FileOutputStream(filename);
-      var out = new ObjectOutputStream(fileStream);
+      var objectMapper = new ObjectMapper();
 
-      out.writeObject(object);
-
-      out.close();
-      fileStream.close();
+      objectMapper.writeValue(file, object);
     } catch (IOException e) {
       System.out.println("Failed to write file");
       e.printStackTrace();
