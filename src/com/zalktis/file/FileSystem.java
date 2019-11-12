@@ -58,14 +58,7 @@ public class FileSystem implements Serializable {
   }
 
   public static FileSystem load() {
-    try {
-      ObjectMapper objectMapper = new ObjectMapper();
-      return objectMapper.readValue(new File(PATH_NAME), FileSystem.class);
-    } catch (IOException e) {
-      System.out.println("Failed to read save file, loading blank.");
-      e.printStackTrace();
-      return new FileSystem(new ArrayList<>(), new ArrayList<>());
-    }
+    return InputOutputHandler.loadObject(PATH_NAME, FileSystem.class);
   }
 
   @Override
