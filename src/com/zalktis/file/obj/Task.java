@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zalktis.file.Holidays;
+import com.zalktis.file.exceptions.DateBeforeTodayException;
 import com.zalktis.file.util.LocalDateDeserializer;
 import com.zalktis.file.util.LocalDateSerializer;
 import java.io.Serializable;
@@ -24,22 +25,28 @@ public class Task implements Serializable {
   @JsonProperty("details")
   private String details;
 
+  @JsonProperty("orderCompletionDate")
+  @JsonDeserialize(using = LocalDateDeserializer.class)
+  @JsonSerialize(using = LocalDateSerializer.class)
+  private LocalDate orderCompletionDate;
+
   @JsonProperty("daysBeforeOrder")
   private int daysBeforeOrder;
 
+  @JsonProperty("completionDate")
   @JsonDeserialize(using = LocalDateDeserializer.class)
   @JsonSerialize(using = LocalDateSerializer.class)
   private LocalDate completionDate;
 
   public Task() {}
 
-  public Task(int ID, int parentID, String name, String details, int daysBeforeOrder, LocalDate orderCompletionDate) {
+  public Task(int ID, int parentID, String name, String details, LocalDate orderCompletionDate, int daysBeforeOrder) {
     this.ID = ID;
     this.parentID = parentID;
-    this.name = name;
-    this.details = details;
-    this.daysBeforeOrder = daysBeforeOrder;
-    this.completionDate = Holidays.getDate(daysBeforeOrder, orderCompletionDate);
+    setName(name);
+    setDetails(details);
+    setOrderCompletionDate(orderCompletionDate);
+    setDaysBeforeOrder(daysBeforeOrder);
   }
 
   @JsonProperty("ID")
@@ -67,6 +74,11 @@ public class Task implements Serializable {
     return daysBeforeOrder;
   }
 
+  @JsonProperty("orderCompletionDate")
+  public LocalDate getOrderCompletionDate() {
+    return orderCompletionDate;
+  }
+
   @JsonProperty("completionDate")
   public LocalDate getCompletionDate() {
     return completionDate;
@@ -82,9 +94,26 @@ public class Task implements Serializable {
     this.details = details;
   }
 
+  @JsonProperty("orderCompletionDate")
+  public void setOrderCompletionDate(LocalDate orderCompletionDate) {
+    calculateCompletionDate(orderCompletionDate, daysBeforeOrder);
+    this.orderCompletionDate = orderCompletionDate;
+  }
+
   @JsonProperty("daysBeforeOrder")
   public void setDaysBeforeOrder(int daysBeforeOrder) {
+    calculateCompletionDate(orderCompletionDate, daysBeforeOrder);
     this.daysBeforeOrder = daysBeforeOrder;
+  }
+
+  private void calculateCompletionDate(LocalDate orderCompletionDate, int daysBeforeOrder) {
+    LocalDate calculatedCompletionDate = Holidays.getDate(daysBeforeOrder, orderCompletionDate);
+
+    if (calculatedCompletionDate.isBefore(LocalDate.now())) {
+      throw new DateBeforeTodayException("The calculated task completion date: " + calculatedCompletionDate + " is before today: " + LocalDate.now());
+    } else {
+      this.completionDate = calculatedCompletionDate;
+    }
   }
 
   @Override

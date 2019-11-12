@@ -3,6 +3,7 @@ package com.zalktis.file.obj;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.zalktis.file.exceptions.DateBeforeTodayException;
 import com.zalktis.file.util.LocalDateDeserializer;
 import com.zalktis.file.util.LocalDateSerializer;
 import java.io.Serializable;
@@ -33,31 +34,16 @@ public class Order implements Serializable {
   @JsonSerialize(using = LocalDateSerializer.class)
   private LocalDate completionDate;
 
-  public Order() {}
-
-  public Order(int ID, List<Task> tasks, String name, String customerName, String details, LocalDate completionDate) {
-    this.ID = ID;
-    this.tasks = tasks;
-    this.name = name;
-    this.customerName = customerName;
-    this.details = details;
-    this.completionDate = completionDate;
-  }
-
-  public Order(List<Task> tasks, String name, String customerName, String details, LocalDate completionDate) {
-    this.tasks = tasks;
-    this.name = name;
-    this.customerName = customerName;
-    this.details = details;
-    this.completionDate = completionDate;
+  public Order() {
+    this.tasks = new ArrayList<>();
   }
 
   public Order(String name, String customerName, String details, LocalDate completionDate) {
     this.tasks = new ArrayList<>();
-    this.name = name;
-    this.customerName = customerName;
-    this.details = details;
-    this.completionDate = completionDate;
+    setName(name);
+    setCustomerName(customerName);
+    setDetails(details);
+    setCompletionDate(completionDate);
   }
 
   @JsonProperty("ID")
@@ -112,7 +98,11 @@ public class Order implements Serializable {
 
   @JsonProperty("completionDate")
   public void setCompletionDate(LocalDate completionDate) {
-    this.completionDate = completionDate;
+    if (completionDate.isBefore(LocalDate.now())) {
+      throw new DateBeforeTodayException("The calculated order completion date: " + completionDate + " is before today: " + LocalDate.now());
+    } else {
+      this.completionDate = completionDate;
+    }
   }
 
   public void addTask(String name, String details, int daysBefore) {
@@ -124,7 +114,7 @@ public class Order implements Serializable {
       }
     }
 
-    Task task = new Task(largestID + 1, ID, name, details, daysBefore, completionDate);
+    Task task = new Task(largestID + 1, ID, name, details, completionDate, daysBefore);
     tasks.add(task);
   }
 
