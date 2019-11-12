@@ -5,25 +5,34 @@ package com.zalktis.file;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 public class InputOutputHandler {
 
   public static <T> T loadObject(String filename, Class<T> type) {
     var file = new File(filename);
 
-//    if (!file.isFile()) {
-//      System.out.println("Error: file not found; creating blank...");
-//      writeObject(filename, null);
-//      return null;
-//    }
-
     try {
       var objectMapper = new ObjectMapper();
 
       return objectMapper.readValue(file, type);
     } catch (IOException e) {
-      System.out.println("Can't access file; exiting...");
-      return null;
+      e.printStackTrace();
+      System.out.println("Can't access file; exiting; writing blank file");
+
+      try {
+        T object = type.getConstructor().newInstance();
+        writeObject(filename, object);
+        return object;
+      } catch (NoSuchMethodException ex) {
+        ex.printStackTrace();
+        System.out.println("Can't find null constructor for class");
+        return null;
+      } catch (IllegalAccessException | InstantiationException | InvocationTargetException ex) {
+        ex.printStackTrace();
+        System.out.println("Failed to instantiate class");
+        return null;
+      }
     }
   }
 
@@ -31,14 +40,18 @@ public class InputOutputHandler {
     File file = new File(filename);
 
     // Create parent directories if they do not exist
-//    if (!file.getParentFile().isDirectory()) {
-//      file.getParentFile().mkdirs();
-//    }
+    if (!file.getParentFile().isDirectory()) {
+      if (!file.getParentFile().mkdirs()) {
+        System.out.println("Failed to create directories");
+        return;
+      };
+    }
 
     try {
       var objectMapper = new ObjectMapper();
 
       objectMapper.writeValue(file, object);
+      System.out.println("Successfully wrote file");
     } catch (IOException e) {
       System.out.println("Failed to write file");
       e.printStackTrace();
