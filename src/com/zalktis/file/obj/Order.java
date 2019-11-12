@@ -34,6 +34,8 @@ public class Order implements Serializable {
   @JsonSerialize(using = LocalDateSerializer.class)
   private LocalDate completionDate;
 
+  public Order() {}
+
   public Order(int ID, List<Task> tasks, String name, String customerName, String details, LocalDate completionDate) {
     this.ID = ID;
     this.tasks = tasks;

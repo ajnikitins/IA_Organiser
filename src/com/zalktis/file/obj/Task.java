@@ -33,14 +33,7 @@ public class Task implements Serializable {
   @JsonSerialize(using = LocalDateSerializer.class)
   private LocalDate completionDate;
 
-  public Task(int ID, Order parent, String name, String details, int daysBeforeOrder, LocalDate completionDate) {
-    this.ID = ID;
-    this.parent = parent;
-    this.name = name;
-    this.details = details;
-    this.daysBeforeOrder = daysBeforeOrder;
-    this.completionDate = completionDate;
-  }
+  public Task() {}
 
   public Task(int ID, int parentID, String name, String details, int daysBeforeOrder, LocalDate orderCompletionDate) {
     this.ID = ID;
