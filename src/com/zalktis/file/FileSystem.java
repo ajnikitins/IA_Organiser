@@ -49,14 +49,6 @@ public class FileSystem implements Serializable {
     tasks.addAll(order.getTasks());
   }
 
-  @Override
-  public String toString() {
-    return "FileSystem{" +
-        ", orders=" + orders +
-        ", tasks=" + tasks +
-        '}';
-  }
-
   public static FileSystem load() {
     return InputOutputHandler.loadObject(PATH_NAME, FileSystem.class);
   }
