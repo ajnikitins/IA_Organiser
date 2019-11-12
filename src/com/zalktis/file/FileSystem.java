@@ -17,7 +17,12 @@ public class FileSystem implements Serializable {
   private List<Order> orders;
   private List<Task> tasks;
 
-  private FileSystem(List<Order> orders, List<Task> tasks) {
+  public FileSystem() {
+    this.orders = new ArrayList<>();
+    this.tasks = new ArrayList<>();
+  }
+
+  public FileSystem(List<Order> orders, List<Task> tasks) {
     this.orders = orders;
     this.tasks = tasks;
   }
