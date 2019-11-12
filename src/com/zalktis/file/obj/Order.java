@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Order implements Serializable {
 
@@ -138,5 +139,27 @@ public class Order implements Serializable {
   public void removeTask(int ID) {
     Task task = findTaskByID(ID);
     tasks.remove(task);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Order order = (Order) o;
+    return ID == order.ID &&
+        tasks.equals(order.tasks) &&
+        name.equals(order.name) &&
+        customerName.equals(order.customerName) &&
+        details.equals(order.details) &&
+        completionDate.equals(order.completionDate);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(ID, tasks, name, customerName, details, completionDate);
   }
 }

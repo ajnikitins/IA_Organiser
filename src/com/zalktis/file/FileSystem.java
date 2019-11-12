@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FileSystem implements Serializable {
 
@@ -67,4 +68,21 @@ public class FileSystem implements Serializable {
     }
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FileSystem system = (FileSystem) o;
+    return orders.equals(system.orders) &&
+        tasks.equals(system.tasks);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(orders, tasks);
+  }
 }

@@ -10,6 +10,7 @@ import com.zalktis.file.util.LocalDateDeserializer;
 import com.zalktis.file.util.LocalDateSerializer;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Task implements Serializable {
 
@@ -93,5 +94,27 @@ public class Task implements Serializable {
   @JsonProperty("daysBeforeOrder")
   public void setDaysBeforeOrder(int daysBeforeOrder) {
     this.daysBeforeOrder = daysBeforeOrder;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Task task = (Task) o;
+    return ID == task.ID &&
+        parentID == task.parentID &&
+        daysBeforeOrder == task.daysBeforeOrder &&
+        name.equals(task.name) &&
+        details.equals(task.details) &&
+        completionDate.equals(task.completionDate);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(ID, parentID, name, details, daysBeforeOrder, completionDate);
   }
 }
