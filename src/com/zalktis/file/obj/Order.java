@@ -17,7 +17,6 @@ public class Order implements Serializable {
   private int ID;
 
   @JsonProperty("tasks")
-  @JsonManagedReference
   private List<Task> tasks;
 
   @JsonProperty("name")
@@ -123,8 +122,7 @@ public class Order implements Serializable {
       }
     }
 
-    // Create new Task
-    Task task = new Task(largestID + 1, this, name, details, daysBefore);
+    Task task = new Task(largestID + 1, ID, name, details, daysBefore, completionDate);
     tasks.add(task);
   }
 

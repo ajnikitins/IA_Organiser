@@ -16,9 +16,8 @@ public class Task implements Serializable {
   @JsonProperty("ID")
   private int ID;
 
-  @JsonProperty("parent")
-  @JsonBackReference
-  private Order parent;
+  @JsonProperty("parentID")
+  private int parentID;
 
   @JsonProperty("name")
   private String name;
@@ -42,13 +41,13 @@ public class Task implements Serializable {
     this.completionDate = completionDate;
   }
 
-  public Task(int ID, Order parent, String name, String details, int daysBeforeOrder) {
+  public Task(int ID, int parentID, String name, String details, int daysBeforeOrder, LocalDate orderCompletionDate) {
     this.ID = ID;
-    this.parent = parent;
+    this.parentID = parentID;
     this.name = name;
     this.details = details;
     this.daysBeforeOrder = daysBeforeOrder;
-    this.completionDate = Holidays.getDate(daysBeforeOrder, parent.getCompletionDate());
+    this.completionDate = Holidays.getDate(daysBeforeOrder, orderCompletionDate);
   }
 
   @JsonProperty("ID")
@@ -56,9 +55,9 @@ public class Task implements Serializable {
     return ID;
   }
 
-  @JsonProperty("parent")
-  public Order getParent() {
-    return parent;
+  @JsonProperty("parentID")
+  public int getParentID() {
+    return parentID;
   }
 
   @JsonProperty("name")
