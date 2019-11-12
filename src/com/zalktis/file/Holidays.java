@@ -13,12 +13,12 @@ public class Holidays {
     }
 
     LocalDate result = completionDate;
-    int addedDays = 0;
-    while (addedDays < daysBefore) {
-      result = result.plusDays(1);
+    int removeDays = 0;
+    while (removeDays < daysBefore) {
+      result = result.minusDays(1);
       if (!(result.getDayOfWeek() == DayOfWeek.SATURDAY ||
           result.getDayOfWeek() == DayOfWeek.SUNDAY)) {
-        ++addedDays;
+        ++removeDays;
       }
     }
 
