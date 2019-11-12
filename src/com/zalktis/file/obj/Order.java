@@ -2,6 +2,7 @@ package com.zalktis.file.obj;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements Serializable {
@@ -15,6 +16,22 @@ public class Order implements Serializable {
   public Order(int ID, List<Task> tasks, String name, String customerName, String details, LocalDate completionDate) {
     this.ID = ID;
     this.tasks = tasks;
+    this.name = name;
+    this.customerName = customerName;
+    this.details = details;
+    this.completionDate = completionDate;
+  }
+
+  public Order(List<Task> tasks, String name, String customerName, String details, LocalDate completionDate) {
+    this.tasks = tasks;
+    this.name = name;
+    this.customerName = customerName;
+    this.details = details;
+    this.completionDate = completionDate;
+  }
+
+  public Order(String name, String customerName, String details, LocalDate completionDate) {
+    this.tasks = new ArrayList<>();
     this.name = name;
     this.customerName = customerName;
     this.details = details;
@@ -43,6 +60,10 @@ public class Order implements Serializable {
 
   public LocalDate getCompletionDate() {
     return completionDate;
+  }
+
+  public void setID(int ID) {
+    this.ID = ID;
   }
 
   public void setName(String name) {

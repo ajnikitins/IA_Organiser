@@ -6,6 +6,7 @@ import com.zalktis.file.obj.Task;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,17 @@ public class FileSystem implements Serializable {
 
   public List<Task> getTasks() {
     return tasks;
+  }
+
+  public void addOrder(String name, String customerName, String details, LocalDate completionDate) {
+    Order order = new Order(name, customerName, details, completionDate);
+    addOrder(order);
+  }
+
+  public void addOrder(Order order) {
+    order.setID(orders.size());
+    orders.add(order);
+    tasks.addAll(order.getTasks());
   }
 
   @Override
