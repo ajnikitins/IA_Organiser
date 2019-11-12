@@ -2,6 +2,7 @@
 
 package com.zalktis.file;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zalktis.file.obj.Order;
 import com.zalktis.file.obj.Task;
 import java.io.Serializable;
@@ -14,7 +15,10 @@ public class FileSystem implements Serializable {
 
   private static final String PATH_NAME = System.getProperty("user.home")  + "\\AppData\\Roaming\\Organiser\\save.json";
 
+  @JsonProperty("orders")
   private List<Order> orders;
+
+  @JsonProperty("task")
   private List<Task> tasks;
 
   public FileSystem() {
