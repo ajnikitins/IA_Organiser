@@ -47,17 +47,15 @@ class InputOutputHandlerTest {
     }
     var system = InputOutputHandler.loadObject(PATH_NAME, FileSystem.class);
     assertEquals(new FileSystem(), system);
-//    assertEquals("Can't access file; exiting; writing blank file\nSuccessfully wrote file", outContent.toString().trim());
   }
 
   @Test
   void writeAndLoadObject() {
     var system = new FileSystem();
-    var order = new Order("Ad page", "Latv. val", "", LocalDate.now());
+    var order = new Order("Ad page", "Latv. val", "", LocalDate.now().plusDays(10));
     order.addTask("Print paper", "Many", 5);
     system.addOrder(order);
     InputOutputHandler.writeObject(PATH_NAME, system);
-//    assertEquals("Successfully wrote file", outContent.toString().trim());
     assertEquals(system, InputOutputHandler.loadObject(PATH_NAME, FileSystem.class));
   }
 }
