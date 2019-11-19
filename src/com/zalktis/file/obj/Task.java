@@ -3,7 +3,7 @@ package com.zalktis.file.obj;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.zalktis.file.Holidays;
+import com.zalktis.file.util.Holidays;
 import com.zalktis.file.exceptions.DateBeforeTodayException;
 import com.zalktis.file.util.LocalDateDeserializer;
 import com.zalktis.file.util.LocalDateSerializer;
