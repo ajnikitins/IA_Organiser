@@ -17,17 +17,12 @@ public class FileSystem {
   @JsonProperty("orders")
   private List<Order> orders;
 
-  @JsonProperty("task")
-  private List<Task> tasks;
-
   public FileSystem() {
     this.orders = new ArrayList<>();
-    this.tasks = new ArrayList<>();
   }
 
-  public FileSystem(List<Order> orders, List<Task> tasks) {
+  public FileSystem(List<Order> orders) {
     this.orders = orders;
-    this.tasks = tasks;
   }
 
   public List<Order> getOrders() {
@@ -35,6 +30,12 @@ public class FileSystem {
   }
 
   public List<Task> getTasks() {
+    ArrayList<Task> tasks = new ArrayList<>();
+
+    for (Order order : orders) {
+      tasks.addAll(order.getTasks());
+    }
+
     return tasks;
   }
 
@@ -43,10 +44,46 @@ public class FileSystem {
     addOrder(order);
   }
 
-  public void addOrder(Order order) {
-    order.setID(orders.size());
-    orders.add(order);
-    tasks.addAll(order.getTasks());
+  public void addOrder(Order newOrder) {
+    int largestID = -1;
+    for (Order order : orders) {
+      if (order.getID() > largestID) {
+        largestID = order.getID();
+      }
+    }
+    newOrder.setID(largestID + 1);
+    orders.add(newOrder);
+  }
+
+  public void addTask(Order order, String name, String details, int daysBefore) {
+    order.addTask(name, details, daysBefore);
+  }
+
+  public Order findOrderByID(int ID) {
+    for(Order order : orders) {
+      if (order.getID() == ID) {
+        return order;
+      }
+    }
+    return null;
+  }
+
+  public Task findTaskByID(int orderID, int taskID) {
+    Order order = findOrderByID(orderID);
+
+    return order == null ? null : order.findTaskByID(taskID);
+  }
+
+  public void removeOrder(int ID) {
+    orders.remove(findOrderByID(ID));
+  }
+
+  public void removeTask(int orderID, int taskID) {
+    Order order = findOrderByID(orderID);
+
+    if (order != null) {
+      order.removeTask(taskID);
+    }
   }
 
   public static FileSystem load() {
@@ -62,12 +99,11 @@ public class FileSystem {
       return false;
     }
     FileSystem system = (FileSystem) o;
-    return orders.equals(system.orders) &&
-        tasks.equals(system.tasks);
+    return orders.equals(system.orders);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(orders, tasks);
+    return Objects.hash(orders);
   }
 }
