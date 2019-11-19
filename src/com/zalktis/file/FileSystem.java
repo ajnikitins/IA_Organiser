@@ -5,13 +5,12 @@ package com.zalktis.file;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zalktis.file.obj.Order;
 import com.zalktis.file.obj.Task;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class FileSystem implements Serializable {
+public class FileSystem {
 
   private static final String PATH_NAME = System.getProperty("user.home")  + "\\AppData\\Roaming\\Organiser\\save.json";
 

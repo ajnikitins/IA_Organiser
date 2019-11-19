@@ -7,11 +7,10 @@ import com.zalktis.file.util.Holidays;
 import com.zalktis.file.exceptions.DateBeforeTodayException;
 import com.zalktis.file.util.LocalDateDeserializer;
 import com.zalktis.file.util.LocalDateSerializer;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Task implements Serializable {
+public class Task {
 
   @JsonProperty("ID")
   private int ID;

@@ -6,13 +6,12 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zalktis.file.exceptions.DateBeforeTodayException;
 import com.zalktis.file.util.LocalDateDeserializer;
 import com.zalktis.file.util.LocalDateSerializer;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Order implements Serializable {
+public class Order {
 
   @JsonProperty("ID")
   private int ID;
