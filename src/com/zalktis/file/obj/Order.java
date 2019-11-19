@@ -128,8 +128,7 @@ public class Order implements Serializable {
   }
 
   public void removeTask(int ID) {
-    Task task = findTaskByID(ID);
-    tasks.remove(task);
+    tasks.remove(findTaskByID(ID));
   }
 
   @Override
