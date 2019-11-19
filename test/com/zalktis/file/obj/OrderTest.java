@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 class OrderTest {
 
-  Order order;
+  private Order order;
 
   @BeforeEach
   void setUp() {

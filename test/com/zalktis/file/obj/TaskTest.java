@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 class TaskTest {
 
-  Task task;
+  private Task task;
 
   @BeforeEach
   void setUp() {
