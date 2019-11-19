@@ -113,8 +113,7 @@ public class Order {
       }
     }
 
-    Task task = new Task(largestID + 1, ID, name, details, completionDate, daysBefore);
-    tasks.add(task);
+    tasks.add(new Task(largestID + 1, ID, name, details, completionDate, daysBefore));
   }
 
   public Task findTaskByID(int ID) {
