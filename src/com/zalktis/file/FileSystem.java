@@ -38,6 +38,20 @@ public class FileSystem {
     return tasks;
   }
 
+  public List<Task> getImminentTasks() {
+    ArrayList<Task> tasks = new ArrayList<>();
+
+    for (Order order : orders) {
+      for (Task task : order.getTasks()) {
+        if (TimeMachine.now().isEqual(task.getCompletionDate())) {
+          tasks.add(task);
+        }
+      }
+    }
+
+    return tasks;
+  }
+
   public void addOrder(String name, String customerName, String details, LocalDate completionDate) {
     Order order = new Order(name, customerName, details, completionDate);
     addOrder(order);

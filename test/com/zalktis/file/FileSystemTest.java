@@ -1,3 +1,5 @@
+// TODO: Update getImminentTasks with national holidays
+
 package com.zalktis.file;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -71,16 +73,25 @@ class FileSystemTest {
 
   @Test
   @Order(7)
-  void removeOrder() {
-    fileSystem.removeOrder(0);
-    assertEquals(1, fileSystem.getOrders().size());
+  void getImminentTasks() {
+    fileSystem.addOrder("Notebooks", "VELVE", "Red and blue", TimeMachine.now().plusDays(4));
+    fileSystem.addTask(fileSystem.findOrderByID(2), "Order forms", "1x1", 4);
+
+    assertEquals(1, fileSystem.getImminentTasks().size());
   }
 
   @Test
   @Order(8)
+  void removeOrder() {
+    fileSystem.removeOrder(0);
+    assertEquals(2, fileSystem.getOrders().size());
+  }
+
+  @Test
+  @Order(9)
   void removeTask() {
-    fileSystem.removeTask(1, 0);
-    assertEquals(0, fileSystem.getTasks().size());
+    fileSystem.removeTask(2, 0);
+    assertEquals(1, fileSystem.getTasks().size());
   }
 
   @AfterAll
