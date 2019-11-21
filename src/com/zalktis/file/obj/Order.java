@@ -99,7 +99,7 @@ public class Order {
   @JsonProperty("completionDate")
   public void setCompletionDate(LocalDate completionDate) {
     if (completionDate.isBefore(TimeMachine.now())) {
-      throw new DateBeforeTodayException("The calculated order completion date: " + completionDate + " is before today: " + TimeMachine.now());
+      throw new DateBeforeTodayException(String.format(DateBeforeTodayException.DEFAULT_MESSAGE, completionDate));
     } else {
       this.completionDate = completionDate;
     }

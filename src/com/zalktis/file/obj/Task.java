@@ -109,7 +109,7 @@ public class Task {
     LocalDate calculatedCompletionDate = TimeMachine.getDate(daysBeforeOrder, orderCompletionDate);
 
     if (calculatedCompletionDate.isBefore(TimeMachine.now())) {
-      throw new DateBeforeTodayException("The calculated task completion date: " + calculatedCompletionDate + " is before today: " + TimeMachine.now());
+      throw new DateBeforeTodayException(String.format(DateBeforeTodayException.DEFAULT_MESSAGE, calculatedCompletionDate));
     } else {
       this.completionDate = calculatedCompletionDate;
     }
