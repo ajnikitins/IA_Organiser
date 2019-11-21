@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zalktis.file.exceptions.DateBeforeTodayException;
-import com.zalktis.file.util.Holidays;
 import com.zalktis.file.util.LocalDateDeserializer;
 import com.zalktis.file.util.LocalDateSerializer;
+import com.zalktis.file.util.TimeMachine;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -106,10 +106,10 @@ public class Task {
   }
 
   private void calculateCompletionDate(LocalDate orderCompletionDate, int daysBeforeOrder) {
-    LocalDate calculatedCompletionDate = Holidays.getDate(daysBeforeOrder, orderCompletionDate);
+    LocalDate calculatedCompletionDate = TimeMachine.getDate(daysBeforeOrder, orderCompletionDate);
 
-    if (calculatedCompletionDate.isBefore(LocalDate.now())) {
-      throw new DateBeforeTodayException("The calculated task completion date: " + calculatedCompletionDate + " is before today: " + LocalDate.now());
+    if (calculatedCompletionDate.isBefore(TimeMachine.now())) {
+      throw new DateBeforeTodayException("The calculated task completion date: " + calculatedCompletionDate + " is before today: " + TimeMachine.now());
     } else {
       this.completionDate = calculatedCompletionDate;
     }

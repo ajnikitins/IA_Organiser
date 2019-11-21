@@ -3,7 +3,9 @@ package com.zalktis.file;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.zalktis.file.util.TimeMachine;
 import java.time.LocalDate;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -16,12 +18,15 @@ import org.junit.jupiter.api.TestMethodOrder;
 @TestMethodOrder(OrderAnnotation.class)
 class FileSystemTest {
 
+  private static final LocalDate LOCAL_DATE = LocalDate.of(2020, 12, 14);
+
   private FileSystem fileSystem;
   private com.zalktis.file.obj.Order order;
 
   @BeforeAll
   void setUp() {
-    order = new com.zalktis.file.obj.Order("Ad page", "Latv. val", "none", LocalDate.of(2020, 12, 5));
+    TimeMachine.useFixedClockAt(LOCAL_DATE);
+    order = new com.zalktis.file.obj.Order("Ad page", "Latv. val", "none", TimeMachine.now().plusDays(4));
   }
 
   @Test
@@ -34,7 +39,7 @@ class FileSystemTest {
   @Test
   @Order(2)
   void addAndGetOrderWithRawData() {
-    fileSystem.addOrder("Ad page", "Latv. val", "none", LocalDate.of(2020, 12, 5));
+    fileSystem.addOrder("Ad page", "Latv. val", "none", TimeMachine.now().plusDays(7));
     assertEquals(1, fileSystem.getOrders().size());
   }
 
@@ -54,7 +59,7 @@ class FileSystemTest {
   @Test
   @Order(5)
   void addAndGetTask() {
-    fileSystem.addTask(fileSystem.findOrderByID(1), "Print paper", "none", 5);
+    fileSystem.addTask(fileSystem.findOrderByID(1), "Print paper", "none", 3);
     assertEquals(1, fileSystem.getTasks().size());
   }
 
@@ -76,5 +81,10 @@ class FileSystemTest {
   void removeTask() {
     fileSystem.removeTask(1, 0);
     assertEquals(0, fileSystem.getTasks().size());
+  }
+
+  @AfterAll
+  void tearDown() {
+    TimeMachine.useSystemDefaultZoneClock();
   }
 }

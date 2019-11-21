@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.zalktis.file.obj.Order;
+import com.zalktis.file.util.TimeMachine;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 class InputOutputHandlerTest {
@@ -30,7 +30,7 @@ class InputOutputHandlerTest {
   @Test
   void writeAndLoadObject() {
     var system = new FileSystem();
-    var order = new Order("Ad page", "Latv. val", "", LocalDate.now().plusDays(10));
+    var order = new Order("Ad page", "Latv. val", "", TimeMachine.now().plusDays(10));
     order.addTask("Print paper", "Many", 5);
     system.addOrder(order);
     InputOutputHandler.writeObject(PATH_NAME, system);

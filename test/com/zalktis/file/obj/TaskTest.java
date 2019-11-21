@@ -3,31 +3,45 @@ package com.zalktis.file.obj;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.zalktis.file.exceptions.DateBeforeTodayException;
+import com.zalktis.file.util.TimeMachine;
 import java.time.LocalDate;
-import java.time.Period;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.TestMethodOrder;
 
+@TestInstance(Lifecycle.PER_CLASS)
+@TestMethodOrder(OrderAnnotation.class)
 class TaskTest {
+
+  private static final LocalDate LOCAL_DATE = LocalDate.of(2020, 12, 14);
 
   private Task task;
 
-  @BeforeEach
+  @BeforeAll
   void setUp() {
-    task = new Task(0, 0, "Print", "None", LocalDate.of(2020, 12, 3), 4);
+    TimeMachine.useFixedClockAt(LOCAL_DATE);
+    task = new Task(0, 0, "Print", "None", TimeMachine.now().plusDays(7), 4);
   }
 
   @Test
+  @Order(1)
   void getID() {
     assertEquals(0, task.getID());
   }
 
   @Test
+  @Order(2)
   void getParentID() {
     assertEquals(0, task.getParentID());
   }
 
   @Test
+  @Order(3)
   void getAndSetName() {
     assertEquals("Print", task.getName());
     task.setName("Buy paper");
@@ -35,6 +49,7 @@ class TaskTest {
   }
 
   @Test
+  @Order(4)
   void getAndSetDetails() {
     assertEquals("None", task.getDetails());
     task.setDetails("Many");
@@ -42,34 +57,43 @@ class TaskTest {
   }
 
   @Test
+  @Order(5)
   void setDaysBeforeOrderAndFail() {
     assertThrows(DateBeforeTodayException.class, () -> task.setDaysBeforeOrder(9999));
   }
 
   @Test
+  @Order(6)
   void getAndSetDaysBeforeOrder() {
     assertEquals(4, task.getDaysBeforeOrder());
-    task.setDaysBeforeOrder(6);
-    assertEquals(6, task.getDaysBeforeOrder());
-  }
-
-  @Test
-  void setOrderCompletionDateAndFail() {
-    assertThrows(DateBeforeTodayException.class, () -> task.setOrderCompletionDate(LocalDate.of(1920, 1, 1)));
-  }
-
-  @Test
-  void getAndSetOrderCompletionDate() {
-    assertEquals(LocalDate.of(2020, 12, 3), task.getOrderCompletionDate());
-    task.setOrderCompletionDate(LocalDate.of(2021, 9, 4));
-    assertEquals(LocalDate.of(2021, 9, 4), task.getOrderCompletionDate());
-  }
-
-  @Test
-  void getAndCompletionDate() {
-    assertEquals(LocalDate.of(2020, 11, 27), task.getCompletionDate());
     task.setDaysBeforeOrder(5);
-    assertEquals(LocalDate.of(2020, 11, 26), task.getCompletionDate());
+    assertEquals(5, task.getDaysBeforeOrder());
   }
 
+  @Test
+  @Order(7)
+  void setOrderCompletionDateAndFail() {
+    assertThrows(DateBeforeTodayException.class, () -> task.setOrderCompletionDate(TimeMachine.now().minusDays(1)));
+  }
+
+  @Test
+  @Order(8)
+  void getAndSetOrderCompletionDate() {
+    assertEquals(TimeMachine.now().plusDays(7), task.getOrderCompletionDate());
+    task.setOrderCompletionDate(TimeMachine.now().plusDays(14));
+    assertEquals(TimeMachine.now().plusDays(14), task.getOrderCompletionDate());
+  }
+
+  @Test
+  @Order(9)
+  void getAndCompletionDate() {
+    assertEquals(TimeMachine.now().plusDays(7), task.getCompletionDate());
+    task.setDaysBeforeOrder(4);
+    assertEquals(TimeMachine.now().plusDays(8), task.getCompletionDate());
+  }
+
+  @AfterAll
+  void tearDown() {
+    TimeMachine.useSystemDefaultZoneClock();
+  }
 }

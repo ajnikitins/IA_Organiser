@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zalktis.file.exceptions.DateBeforeTodayException;
 import com.zalktis.file.util.LocalDateDeserializer;
 import com.zalktis.file.util.LocalDateSerializer;
+import com.zalktis.file.util.TimeMachine;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,8 +98,8 @@ public class Order {
 
   @JsonProperty("completionDate")
   public void setCompletionDate(LocalDate completionDate) {
-    if (completionDate.isBefore(LocalDate.now())) {
-      throw new DateBeforeTodayException("The calculated order completion date: " + completionDate + " is before today: " + LocalDate.now());
+    if (completionDate.isBefore(TimeMachine.now())) {
+      throw new DateBeforeTodayException("The calculated order completion date: " + completionDate + " is before today: " + TimeMachine.now());
     } else {
       this.completionDate = completionDate;
     }
