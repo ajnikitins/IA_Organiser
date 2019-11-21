@@ -10,6 +10,9 @@ import java.util.Arrays;
 
 public class TimeMachine {
 
+  private static Clock clock = Clock.systemDefaultZone();
+  private static ZoneId zoneId = ZoneId.systemDefault();
+
   private static LocalDate[] natHolidays = {
       LocalDate.of(TimeMachine.now().getYear(), 1, 1),
       LocalDate.of(2020, 4, 10),
@@ -25,9 +28,6 @@ public class TimeMachine {
       LocalDate.of(TimeMachine.now().getYear(), 12, 26),
       LocalDate.of(TimeMachine.now().getYear(), 12, 31),
   };
-
-  private static Clock clock = Clock.systemDefaultZone();
-  private static ZoneId zoneId = ZoneId.systemDefault();
 
   public static LocalDate now() {
     return LocalDate.now(getClock());
