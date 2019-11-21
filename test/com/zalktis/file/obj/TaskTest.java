@@ -1,6 +1,7 @@
 package com.zalktis.file.obj;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.zalktis.file.exceptions.DateBeforeTodayException;
 import com.zalktis.file.util.TimeMachine;
