@@ -13,21 +13,23 @@ public class TimeMachine {
   private static Clock clock = Clock.systemDefaultZone();
   private static ZoneId zoneId = ZoneId.systemDefault();
 
-  private static LocalDate[] natHolidays = {
-      LocalDate.of(TimeMachine.now().getYear(), 1, 1),
-      LocalDate.of(2020, 4, 10),
-      LocalDate.of(2020, 4, 12),
-      LocalDate.of(2020, 4, 13),
-      LocalDate.of(TimeMachine.now().getYear(), 5, 1),
-      LocalDate.of(TimeMachine.now().getYear(), 5, 4),
-      LocalDate.of(TimeMachine.now().getYear(), 6, 23),
-      LocalDate.of(TimeMachine.now().getYear(), 6, 24),
-      LocalDate.of(TimeMachine.now().getYear(), 11, 18),
-      LocalDate.of(TimeMachine.now().getYear(), 12, 24),
-      LocalDate.of(TimeMachine.now().getYear(), 12, 25),
-      LocalDate.of(TimeMachine.now().getYear(), 12, 26),
-      LocalDate.of(TimeMachine.now().getYear(), 12, 31),
-  };
+  private static LocalDate[] getNationalHolidays() {
+    return new LocalDate[]{
+        LocalDate.of(TimeMachine.now().getYear(), 1, 1),
+        LocalDate.of(2020, 4, 10),
+        LocalDate.of(2020, 4, 12),
+        LocalDate.of(2020, 4, 13),
+        LocalDate.of(TimeMachine.now().getYear(), 5, 1),
+        LocalDate.of(TimeMachine.now().getYear(), 5, 4),
+        LocalDate.of(TimeMachine.now().getYear(), 6, 23),
+        LocalDate.of(TimeMachine.now().getYear(), 6, 24),
+        LocalDate.of(TimeMachine.now().getYear(), 11, 18),
+        LocalDate.of(TimeMachine.now().getYear(), 12, 24),
+        LocalDate.of(TimeMachine.now().getYear(), 12, 25),
+        LocalDate.of(TimeMachine.now().getYear(), 12, 26),
+        LocalDate.of(TimeMachine.now().getYear(), 12, 31),
+    };
+  }
 
   public static LocalDate now() {
     return LocalDate.now(getClock());
@@ -64,6 +66,6 @@ public class TimeMachine {
 
   public static boolean isHoliday(LocalDate date) {
     return date.getDayOfWeek() == DayOfWeek.SATURDAY
-        || date.getDayOfWeek() == DayOfWeek.SUNDAY || Arrays.asList(natHolidays).contains(date);
+        || date.getDayOfWeek() == DayOfWeek.SUNDAY || Arrays.asList(getNationalHolidays()).contains(date);
   }
 }
