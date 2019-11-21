@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zalktis.file.exceptions.DateBeforeTodayException;
+import com.zalktis.file.exceptions.HolidayException;
 import com.zalktis.file.util.LocalDateDeserializer;
 import com.zalktis.file.util.LocalDateSerializer;
 import com.zalktis.file.util.TimeMachine;
@@ -95,6 +96,9 @@ public class Task {
 
   @JsonProperty("orderCompletionDate")
   public void setOrderCompletionDate(LocalDate orderCompletionDate) {
+    if (TimeMachine.isHoliday(orderCompletionDate)) {
+      throw new HolidayException(String.format(HolidayException.DEFAULT_MESSAGE, orderCompletionDate));
+    }
     calculateCompletionDate(orderCompletionDate, daysBeforeOrder);
     this.orderCompletionDate = orderCompletionDate;
   }

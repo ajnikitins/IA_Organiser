@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.zalktis.file.exceptions.DateBeforeTodayException;
+import com.zalktis.file.exceptions.HolidayException;
 import com.zalktis.file.util.TimeMachine;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -67,18 +68,24 @@ class OrderTest {
 
   @Test
   @org.junit.jupiter.api.Order(6)
-  void setCompletionDateAndFail() {
+  void setCompletionDateAndFailWithDateBefore() {
     assertThrows(DateBeforeTodayException.class, () -> order.setCompletionDate(TimeMachine.now().minusDays(5)));
   }
 
   @Test
   @org.junit.jupiter.api.Order(7)
+  void setCompletionDateAndFailWithHoliday() {
+    assertThrows(HolidayException.class, () -> order.setCompletionDate(TimeMachine.now().plusDays(5)));
+  }
+
+  @Test
+  @org.junit.jupiter.api.Order(8)
   void getTasks() {
     assertEquals(new ArrayList<Task>(), order.getTasks());
   }
 
   @Test
-  @org.junit.jupiter.api.Order(8)
+  @org.junit.jupiter.api.Order(9)
   void addAndFindAndRemoveTask() {
     order.addTask("Print", "None", 4);
 

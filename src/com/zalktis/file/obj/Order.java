@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zalktis.file.exceptions.DateBeforeTodayException;
+import com.zalktis.file.exceptions.HolidayException;
 import com.zalktis.file.util.LocalDateDeserializer;
 import com.zalktis.file.util.LocalDateSerializer;
 import com.zalktis.file.util.TimeMachine;
@@ -100,6 +101,8 @@ public class Order {
   public void setCompletionDate(LocalDate completionDate) {
     if (completionDate.isBefore(TimeMachine.now())) {
       throw new DateBeforeTodayException(String.format(DateBeforeTodayException.DEFAULT_MESSAGE, completionDate));
+    } else if (TimeMachine.isHoliday(completionDate)) {
+      throw new HolidayException(String.format(HolidayException.DEFAULT_MESSAGE, completionDate));
     } else {
       this.completionDate = completionDate;
     }

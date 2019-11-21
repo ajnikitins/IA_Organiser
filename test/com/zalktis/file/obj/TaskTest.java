@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.zalktis.file.exceptions.DateBeforeTodayException;
+import com.zalktis.file.exceptions.HolidayException;
 import com.zalktis.file.util.TimeMachine;
 import java.time.LocalDate;
 import org.junit.jupiter.api.AfterAll;
@@ -59,7 +60,7 @@ class TaskTest {
 
   @Test
   @Order(5)
-  void setDaysBeforeOrderAndFail() {
+  void setDaysBeforeOrderAndFailWithDateBefore() {
     assertThrows(DateBeforeTodayException.class, () -> task.setDaysBeforeOrder(9999));
   }
 
@@ -73,12 +74,18 @@ class TaskTest {
 
   @Test
   @Order(7)
-  void setOrderCompletionDateAndFail() {
-    assertThrows(DateBeforeTodayException.class, () -> task.setOrderCompletionDate(TimeMachine.now().minusDays(1)));
+  void setOrderCompletionDateAndFailWithDateBefore() {
+    assertThrows(DateBeforeTodayException.class, () -> task.setOrderCompletionDate(TimeMachine.now().minusDays(3)));
   }
 
   @Test
   @Order(8)
+  void setOrderCompletionDateAndFailWithHoliday() {
+    assertThrows(HolidayException.class, () -> task.setOrderCompletionDate(TimeMachine.now().minusDays(1)));
+  }
+
+  @Test
+  @Order(9)
   void getAndSetOrderCompletionDate() {
     assertEquals(TimeMachine.now().plusDays(7), task.getOrderCompletionDate());
     task.setOrderCompletionDate(TimeMachine.now().plusDays(14));
@@ -86,7 +93,7 @@ class TaskTest {
   }
 
   @Test
-  @Order(9)
+  @Order(10)
   void getAndCompletionDate() {
     assertEquals(TimeMachine.now().plusDays(7), task.getCompletionDate());
     task.setDaysBeforeOrder(4);
