@@ -106,6 +106,9 @@ public class Order {
       throw new HolidayException(String.format(HolidayException.DEFAULT_MESSAGE, completionDate));
     } else {
       this.completionDate = completionDate;
+      for (Task task: tasks) {
+        task.setOrderCompletionDate(completionDate);
+      }
     }
   }
 
