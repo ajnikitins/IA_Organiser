@@ -2,6 +2,7 @@ package com.zalktis.file;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.zalktis.file.util.TimeMachine;
 import java.time.LocalDate;
@@ -73,6 +74,15 @@ class FileSystemTest {
 
   @Test
   @Order(6)
+  void getSortedOrders() {
+    fileSystem.addOrder("Ad page", "Latv. val", "none", TimeMachine.now().plusDays(7));
+    fileSystem.addOrder("Notebooks", "VELVE", "Red and blue", TimeMachine.now().plusDays(4));
+
+    assertTrue(fileSystem.getSortedOrders().get(0).getCompletionDate().isBefore(fileSystem.getSortedOrders().get(1).getCompletionDate()));
+  }
+
+  @Test
+  @Order(7)
   void removeOrder() {
     fileSystem.addOrder("Ad page", "Latv. val", "none", TimeMachine.now().plusDays(7));
 
@@ -81,7 +91,7 @@ class FileSystemTest {
   }
 
   @Test
-  @Order(7)
+  @Order(8)
   void removeTask() {
     fileSystem.addOrder("Ad page", "Latv. val", "none", TimeMachine.now().plusDays(7));
     fileSystem.addTask(0, "Order forms", "1x1", 4);

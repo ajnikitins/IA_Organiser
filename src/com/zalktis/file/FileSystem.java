@@ -6,8 +6,10 @@ import com.zalktis.file.obj.Task;
 import com.zalktis.file.util.TimeMachine;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class FileSystem {
 
@@ -50,6 +52,10 @@ public class FileSystem {
     }
 
     return tasks;
+  }
+
+  public List<Order> getSortedOrders() {
+    return orders.stream().sorted(Comparator.comparing(Order::getCompletionDate)).collect(Collectors.toList());
   }
 
   public void addOrder(String name, String customerName, String details, LocalDate completionDate) {
