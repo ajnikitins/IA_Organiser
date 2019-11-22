@@ -3,6 +3,7 @@ package com.zalktis.file.obj;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.zalktis.file.exceptions.DateBeforeTodayException;
 import com.zalktis.file.exceptions.HolidayException;
@@ -91,6 +92,14 @@ class OrderTest {
 
     order.removeTask(0);
     assertNull(order.findTaskByID(0));
+  }
+
+  @Test
+  void getSortedTasks() {
+    order.addTask("Order paper", "", 4);
+    order.addTask("Order forms", "", 5);
+
+    assertTrue(order.getSortedTasks().get(0).getCompletionDate().isBefore(order.getSortedTasks().get(1).getCompletionDate()));
   }
 
   @AfterEach

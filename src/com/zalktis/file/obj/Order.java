@@ -10,8 +10,10 @@ import com.zalktis.file.util.LocalDateSerializer;
 import com.zalktis.file.util.TimeMachine;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Order {
 
@@ -131,6 +133,10 @@ public class Order {
       }
     }
     return null;
+  }
+
+  public List<Task> getSortedTasks() {
+    return tasks.stream().sorted(Comparator.comparing(Task::getCompletionDate)).collect(Collectors.toList());
   }
 
   public void removeTask(int ID) {
