@@ -7,16 +7,13 @@ import com.zalktis.file.exceptions.DateBeforeTodayException;
 import com.zalktis.file.exceptions.HolidayException;
 import com.zalktis.file.util.TimeMachine;
 import java.time.LocalDate;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.TestMethodOrder;
 
-@TestInstance(Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation.class)
 class TaskTest {
 
@@ -24,7 +21,7 @@ class TaskTest {
 
   private Task task;
 
-  @BeforeAll
+  @BeforeEach
   void setUp() {
     TimeMachine.useFixedClockAt(LOCAL_DATE);
     task = new Task(0, 0, "Print", "None", TimeMachine.now().plusDays(7), 4);
@@ -94,13 +91,13 @@ class TaskTest {
 
   @Test
   @Order(10)
-  void getAndCompletionDate() {
-    assertEquals(TimeMachine.now().plusDays(7), task.getCompletionDate());
-    task.setDaysBeforeOrder(4);
-    assertEquals(TimeMachine.now().plusDays(8), task.getCompletionDate());
+  void getAndRecalculateCompletionDate() {
+    assertEquals(TimeMachine.now().plusDays(1), task.getCompletionDate());
+    task.setDaysBeforeOrder(5);
+    assertEquals(TimeMachine.now(), task.getCompletionDate());
   }
 
-  @AfterAll
+  @AfterEach
   void tearDown() {
     TimeMachine.useSystemDefaultZoneClock();
   }

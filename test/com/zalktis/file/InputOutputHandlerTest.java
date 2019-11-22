@@ -5,7 +5,6 @@ package com.zalktis.file;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.zalktis.file.obj.Order;
 import com.zalktis.file.util.TimeMachine;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,11 +28,10 @@ class InputOutputHandlerTest {
 
   @Test
   void writeAndLoadObject() {
-    var system = new FileSystem();
-    var order = new Order("Ad page", "Latv. val", "", TimeMachine.now().plusDays(10));
-    order.addTask("Print paper", "Many", 5);
-    system.addOrder(order);
-    InputOutputHandler.writeObject(PATH_NAME, system);
-    assertEquals(system, InputOutputHandler.loadObject(PATH_NAME, FileSystem.class));
+    var fileSystem = new FileSystem();
+    fileSystem.addOrder("Ad page", "Latv. val", "", TimeMachine.now().plusDays(10));
+    fileSystem.addTask(0,"Print paper", "Many", 5);
+    InputOutputHandler.writeObject(PATH_NAME, fileSystem);
+    assertEquals(fileSystem, InputOutputHandler.loadObject(PATH_NAME, FileSystem.class));
   }
 }

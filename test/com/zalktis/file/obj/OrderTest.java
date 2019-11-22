@@ -9,15 +9,12 @@ import com.zalktis.file.exceptions.HolidayException;
 import com.zalktis.file.util.TimeMachine;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.TestMethodOrder;
 
-@TestInstance(Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation.class)
 class OrderTest {
 
@@ -25,24 +22,24 @@ class OrderTest {
 
   private Order order;
 
-  @BeforeAll
+  @BeforeEach
   void setUp() {
     TimeMachine.useFixedClockAt(LOCAL_DATE);
-    order = new Order();
+    order = new Order(0, "Ad page", "Latv. val", "none", TimeMachine.now().plusDays(7));
   }
 
   @Test
   @org.junit.jupiter.api.Order(1)
   void setAndGetID() {
-    order.setID(0);
-    assertEquals(0, order.getID());
+    order.setID(1);
+    assertEquals(1, order.getID());
   }
 
   @Test
   @org.junit.jupiter.api.Order(2)
   void setAndGetName() {
-    order.setName("Ad page");
-    assertEquals("Ad page", order.getName());
+    order.setName("Notebook");
+    assertEquals("Notebook", order.getName());
   }
 
   @Test
@@ -89,14 +86,14 @@ class OrderTest {
   void addAndFindAndRemoveTask() {
     order.addTask("Print", "None", 4);
 
-    Task task = new Task(0, 0, "Print", "None", TimeMachine.now().plusDays(4), 4);
+    Task task = new Task(0, 0, "Print", "None", order.getCompletionDate(), 4);
     assertEquals(task, order.findTaskByID(0));
 
     order.removeTask(0);
     assertNull(order.findTaskByID(0));
   }
 
-  @AfterAll
+  @AfterEach
   void tearDown() {
     TimeMachine.useSystemDefaultZoneClock();
   }

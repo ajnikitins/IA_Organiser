@@ -39,8 +39,9 @@ public class Order {
     this.tasks = new ArrayList<>();
   }
 
-  public Order(String name, String customerName, String details, LocalDate completionDate) {
+  public Order(int ID, String name, String customerName, String details, LocalDate completionDate) {
     this.tasks = new ArrayList<>();
+    this.ID = ID;
     setName(name);
     setCustomerName(customerName);
     setDetails(details);

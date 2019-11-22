@@ -23,12 +23,10 @@ class FileSystemTest {
   private static final LocalDate LOCAL_DATE = LocalDate.of(2020, 12, 14);
 
   private FileSystem fileSystem;
-  private com.zalktis.file.obj.Order order;
 
   @BeforeAll
   void setUp() {
     TimeMachine.useFixedClockAt(LOCAL_DATE);
-    order = new com.zalktis.file.obj.Order("Ad page", "Latv. val", "none", TimeMachine.now().plusDays(4));
   }
 
   @Test
@@ -46,36 +44,29 @@ class FileSystemTest {
   }
 
   @Test
-  @Order(3)
-  void addAndGetOrderWithExisting() {
-    fileSystem.addOrder(order);
-    assertEquals(2, fileSystem.getOrders().size());
-  }
-
-  @Test
   @Order(4)
   void findOrderByID() {
-    assertEquals(order, fileSystem.findOrderByID(1));
+    assertEquals(fileSystem.getOrders().get(0), fileSystem.findOrderByID(0));
   }
 
   @Test
   @Order(5)
   void addAndGetTask() {
-    fileSystem.addTask(fileSystem.findOrderByID(1), "Print paper", "none", 3);
-    assertEquals(1, fileSystem.getTasks().size());
+    fileSystem.addTask(0, "Print paper", "none", 3);
+    assertEquals( 1, fileSystem.getTasks().size());
   }
 
   @Test
   @Order(6)
   void findTaskByID() {
-    assertEquals(fileSystem.getTasks().get(0), fileSystem.findTaskByID(1, 0));
+    assertEquals(fileSystem.getTasks().get(0), fileSystem.findTaskByID(0, 0));
   }
 
   @Test
   @Order(7)
   void getImminentTasks() {
     fileSystem.addOrder("Notebooks", "VELVE", "Red and blue", TimeMachine.now().plusDays(4));
-    fileSystem.addTask(fileSystem.findOrderByID(2), "Order forms", "1x1", 4);
+    fileSystem.addTask(1, "Order forms", "1x1", 4);
 
     assertEquals(1, fileSystem.getImminentTasks().size());
   }
@@ -84,14 +75,14 @@ class FileSystemTest {
   @Order(8)
   void removeOrder() {
     fileSystem.removeOrder(0);
-    assertEquals(2, fileSystem.getOrders().size());
+    assertEquals(1, fileSystem.getOrders().size());
   }
 
   @Test
   @Order(9)
   void removeTask() {
-    fileSystem.removeTask(2, 0);
-    assertEquals(1, fileSystem.getTasks().size());
+    fileSystem.removeTask(1, 0);
+    assertEquals(0, fileSystem.getTasks().size());
   }
 
   @AfterAll

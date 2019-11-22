@@ -53,23 +53,19 @@ public class FileSystem {
   }
 
   public void addOrder(String name, String customerName, String details, LocalDate completionDate) {
-    Order order = new Order(name, customerName, details, completionDate);
-    addOrder(order);
-  }
-
-  public void addOrder(Order newOrder) {
     int largestID = -1;
     for (Order order : orders) {
       if (order.getID() > largestID) {
         largestID = order.getID();
       }
     }
-    newOrder.setID(largestID + 1);
-    orders.add(newOrder);
+
+    Order order = new Order(largestID + 1, name, customerName, details, completionDate);
+    orders.add(order);
   }
 
-  public void addTask(Order order, String name, String details, int daysBefore) {
-    order.addTask(name, details, daysBefore);
+  public void addTask(int ID, String name, String details, int daysBefore) {
+    findOrderByID(ID).addTask(name, details, daysBefore);
   }
 
   public Order findOrderByID(int ID) {
