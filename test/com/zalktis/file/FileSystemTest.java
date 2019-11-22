@@ -1,5 +1,3 @@
-// TODO: Update getImminentTasks with national holidays
-
 package com.zalktis.file;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
