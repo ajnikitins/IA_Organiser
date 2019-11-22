@@ -96,7 +96,7 @@ class FileSystemTest {
     fileSystem.addOrder("Ad page", "Latv. val", "none", TimeMachine.now().plusDays(7));
     fileSystem.addTask(0, "Order forms", "1x1", 4);
 
-    fileSystem.removeTask(1, 0);
+    fileSystem.removeTask(0, 0);
     assertEquals(0, fileSystem.getTasks().size());
   }
 
