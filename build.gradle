@@ -15,11 +15,16 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.+'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.+'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.+'
 }
 
 javafx {
     version = "13"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+test {
+    useJUnitPlatform()
 }
 
 mainClassName = 'com.zalktis.MainApp'
