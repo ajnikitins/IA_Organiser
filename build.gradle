@@ -25,4 +25,4 @@ test {
     useJUnitPlatform()
 }
 
-mainClassName = 'com.zalktis.MainApp'
+mainClassName = 'com.zalktis.main.Main'
