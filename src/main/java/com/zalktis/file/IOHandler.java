@@ -7,9 +7,9 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-public class InputOutputHandler {
+public class IOHandler {
 
-  private InputOutputHandler() {}
+  private IOHandler() {}
 
   public static <T> T loadObject(String filename, Class<T> type) {
     var file = new File(filename);

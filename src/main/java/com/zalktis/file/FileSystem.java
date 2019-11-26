@@ -102,7 +102,7 @@ public class FileSystem {
   }
 
   public static FileSystem load() {
-    return InputOutputHandler.loadObject(PATH_NAME, FileSystem.class);
+    return IOHandler.loadObject(PATH_NAME, FileSystem.class);
   }
 
   @Override

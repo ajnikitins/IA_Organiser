@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
-class InputOutputHandlerTest {
+class IOHandlerTest {
 
   private static final String PATH_NAME = System.getProperty("user.home")  + "\\AppData\\Roaming\\Organiser\\test.json";
 
@@ -22,7 +22,7 @@ class InputOutputHandlerTest {
     } catch (IOException e) {
       fail("Unexpected IO Exception");
     }
-    var system = InputOutputHandler.loadObject(PATH_NAME, FileSystem.class);
+    var system = IOHandler.loadObject(PATH_NAME, FileSystem.class);
     assertEquals(new FileSystem(), system);
   }
 
@@ -31,7 +31,7 @@ class InputOutputHandlerTest {
     var fileSystem = new FileSystem();
     fileSystem.addOrder("Ad page", "Latv. val", "", TimeMachine.now().plusDays(10));
     fileSystem.addTask(0,"Print paper", "Many", 5);
-    InputOutputHandler.writeObject(PATH_NAME, fileSystem);
-    assertEquals(fileSystem, InputOutputHandler.loadObject(PATH_NAME, FileSystem.class));
+    IOHandler.writeObject(PATH_NAME, fileSystem);
+    assertEquals(fileSystem, IOHandler.loadObject(PATH_NAME, FileSystem.class));
   }
 }
