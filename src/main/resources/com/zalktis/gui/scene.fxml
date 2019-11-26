@@ -3,10 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import com.zalktis.gui.components.ImminentTaskList?>
 <TabPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" tabClosingPolicy="UNAVAILABLE" tabMinWidth="280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zalktis.gui.controllers.MainController">
   <tabs>
     <Tab text="Imminent Tasks">
       <content>
+        <ImminentTaskList fx:id="imminentTaskList"/>
       </content>
     </Tab>
     <Tab text="All Orders">
