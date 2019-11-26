@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/IA_Organiser.iml" filepath="$PROJECT_DIR$/IA_Organiser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/IA_Organiser.iml" filepath="$PROJECT_DIR$/.idea/modules/IA_Organiser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/IA_Organiser.main.iml" filepath="$PROJECT_DIR$/.idea/modules/IA_Organiser.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/IA_Organiser.test.iml" filepath="$PROJECT_DIR$/.idea/modules/IA_Organiser.test.iml" />
     </modules>
   </component>
 </project>
