@@ -26,7 +26,6 @@ public class ImminentTaskList extends VBox {
 
   @FXML
   public void initialize() {
-    System.out.println(1);
     dateLabel.setText(TimeMachine.now().toString());
   }
 }
