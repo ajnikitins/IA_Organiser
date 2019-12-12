@@ -18,6 +18,8 @@ public class FileSystem {
   @JsonProperty("orders")
   private List<Order> orders;
 
+  private Runnable onChange;
+
   public FileSystem() {
     this.orders = new ArrayList<>();
   }
@@ -28,6 +30,14 @@ public class FileSystem {
 
   public List<Order> getOrders() {
     return orders;
+  }
+
+  public Runnable getOnChange() {
+    return onChange;
+  }
+
+  public void setOnChange(Runnable onChange) {
+    this.onChange = onChange;
   }
 
   public List<Task> getTasks() {
@@ -103,6 +113,10 @@ public class FileSystem {
 
   public static FileSystem load() {
     return IOHandler.loadObject(PATH_NAME, FileSystem.class);
+  }
+
+  public void save(FileSystem fileSystem) {
+    IOHandler.writeObject(PATH_NAME, fileSystem);
   }
 
   @Override
