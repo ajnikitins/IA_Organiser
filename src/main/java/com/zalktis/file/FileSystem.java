@@ -78,10 +78,14 @@ public class FileSystem {
 
     Order order = new Order(largestID + 1, name, customerName, details, completionDate);
     orders.add(order);
+
+    onChange.run();
   }
 
   public void addTask(int ID, String name, String details, int daysBefore) {
     findOrderByID(ID).addTask(name, details, daysBefore);
+
+    onChange.run();
   }
 
   public Order findOrderByID(int ID) {
@@ -101,6 +105,8 @@ public class FileSystem {
 
   public void removeOrder(int ID) {
     orders.remove(findOrderByID(ID));
+
+    onChange.run();
   }
 
   public void removeTask(int orderID, int taskID) {
@@ -109,6 +115,8 @@ public class FileSystem {
     if (order != null) {
       order.removeTask(taskID);
     }
+
+    onChange.run();
   }
 
   public static FileSystem load() {
