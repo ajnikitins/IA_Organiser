@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root spacing="5.0" type="javafx.scene.layout.HBox"
+  xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <Label fx:id="orderNameLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Order name"/>
+   <Label fx:id="completionDateLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Completion date"/>
+   <Button fx:id="completeButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickCompleteButton"/>
+   <Button fx:id="editButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickEditButton"/>
+</fx:root>

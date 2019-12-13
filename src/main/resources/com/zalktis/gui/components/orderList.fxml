@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root prefHeight="365.0" prefWidth="600.0" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+  <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="330.0">
+    <Accordion fx:id="objectAccordion" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="597.0"/>
+  </ScrollPane>
+  <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClickAddOrder" prefHeight="30.0" text="Add Order">
+    <VBox.margin>
+      <Insets left="5.0" top="2.5" />
+    </VBox.margin>
+    <font>
+      <Font size="13.0" />
+    </font>
+  </Button>
+</fx:root>
