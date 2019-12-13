@@ -16,7 +16,7 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.+'
 }
 
-sourceCompatibility = 1.13
+sourceCompatibility = 1.11
 
 javafx {
     version = "13"

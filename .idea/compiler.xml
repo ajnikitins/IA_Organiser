@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="IA_Organiser.main" target="13" />
-      <module name="IA_Organiser.test" target="13" />
+      <module name="IA_Organiser.main" target="11" />
+      <module name="IA_Organiser.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
