@@ -1,31 +1,26 @@
 package com.zalktis.gui.components;
 
-import com.zalktis.file.util.TimeMachine;
-import java.io.IOException;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import com.zalktis.file.obj.Order;
+import com.zalktis.file.obj.Task;
+import java.util.function.Consumer;
 
-public class ImminentTaskList extends VBox {
+public class ImminentTaskList extends ObjectList {
 
-  @FXML
-  private Accordion taskAccordion;
+  Consumer<Order> onTitleClick;
 
-  @FXML
-  private Label dateLabel;
-
-  public ImminentTaskList() throws IOException {
-    super();
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("imminentTaskList.fxml"));
-    loader.setController(this);
-    loader.setRoot(this);
-    loader.load();
+  public ImminentTaskList() {
+    super("imminentTaskList.fxml");
   }
 
-  @FXML
-  public void initialize() {
-    dateLabel.setText(TimeMachine.now().toString());
+  public void setOnTitleClick(Consumer<Order> onTitleClick) {
+    this.onTitleClick = onTitleClick;
+  }
+
+  @Override
+  public void createObjectList() {
+    for (Task task : getFileSystem().getImminentTasks()) {
+      getObjectAccordion().getPanes().add(new ImminentTaskPane(task, getFileSystem().findOrderByID(task.getParentID()),
+          onTitleClick));
+    }
   }
 }
