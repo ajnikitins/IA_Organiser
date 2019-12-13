@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.zalktis.gui.components.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import com.zalktis.gui.components.ImminentTaskList?>
-<TabPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" tabClosingPolicy="UNAVAILABLE" tabMinWidth="280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zalktis.gui.controllers.MainController">
-  <tabs>
+<VBox xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zalktis.gui.controllers.MainController">
+  <TabPane id="mainPane" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" tabClosingPolicy="UNAVAILABLE" tabMinWidth="280.0">
     <Tab text="Imminent Tasks">
-      <content>
-        <ImminentTaskList fx:id="imminentTaskList"/>
-      </content>
+      <ImminentTaskList fx:id="imminentTaskList"/>
     </Tab>
-    <Tab text="All Orders">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
+    <Tab id="orderList" text="All Orders">
+      <OrderList fx:id="orderList"/>
     </Tab>
-  </tabs>
-</TabPane>
+  </TabPane>
+</VBox>
