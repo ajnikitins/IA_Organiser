@@ -40,7 +40,7 @@ public class FileSystem {
     this.onChange = onChange;
   }
 
-  public int lastID;
+  public int currentID = 0;
 
   public List<Task> getTasks() {
     ArrayList<Task> tasks = new ArrayList<>();
@@ -71,7 +71,7 @@ public class FileSystem {
   }
 
   public void addOrder(Order order) {
-    order.setID(lastID++);
+    order.setID(currentID++);
     orders.add(order);
 
     onChange.run();

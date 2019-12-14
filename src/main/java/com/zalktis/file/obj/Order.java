@@ -37,7 +37,7 @@ public class Order {
   @JsonSerialize(using = LocalDateSerializer.class)
   private LocalDate completionDate;
 
-  private int lastID = -1;
+  private int currentID = 0;
 
   public Order() {
     this.tasks = new ArrayList<>();
@@ -127,7 +127,7 @@ public class Order {
   }
 
   public void addTask(Task task) {
-    task.setID(lastID++);
+    task.setID(currentID++);
     task.setParentID(ID);
     task.setOrderCompletionDate(completionDate);
 
