@@ -49,6 +49,17 @@ public class AddTaskDialog extends AddDialog<Task> {
     taskNameField.setText(task.getName());
     daysSpinner.getValueFactory().setValue(task.getDaysBeforeOrder());
     detailsArea.setText(task.getDetails());
+
+    setResultConverter(dialogButtonType -> {
+      if(dialogButtonType == ButtonType.OK) {
+        task.setName(taskNameField.getText());
+        task.setDaysBeforeOrder(daysSpinner.getValue());
+        task.setDetails(detailsArea.getText());
+
+        return task;
+      }
+      return null;
+    });
   }
 
   public void setupUI() {
