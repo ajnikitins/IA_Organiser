@@ -103,6 +103,26 @@ public class FileSystem {
     return order == null ? null : order.findTaskByID(taskID);
   }
 
+  public void updateOrder(Order order) {
+    for (int i = 0; i < orders.size(); i++) {
+      if (orders.get(i).getID() == order.getID()) {
+        orders.set(i, order);
+      }
+    }
+
+    onChange.run();
+  }
+
+  public void updateTask(Task task) {
+    Order order = findOrderByID(task.getParentID());
+
+    if (order != null) {
+      order.updateTask(task);
+    }
+
+    onChange.run();
+  }
+
   public void removeOrder(int ID) {
     orders.remove(findOrderByID(ID));
 

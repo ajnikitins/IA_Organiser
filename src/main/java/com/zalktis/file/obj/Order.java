@@ -139,6 +139,14 @@ public class Order {
     return tasks.stream().sorted(Comparator.comparing(Task::getCompletionDate)).collect(Collectors.toList());
   }
 
+  public void updateTask(Task task) {
+    for (int i = 0; i < getTasks().size(); i++) {
+      if (getTasks().get(i).getID() == task.getID()) {
+        getTasks().set(i, task);
+      }
+    }
+  }
+
   public void removeTask(int ID) {
     tasks.remove(findTaskByID(ID));
   }
