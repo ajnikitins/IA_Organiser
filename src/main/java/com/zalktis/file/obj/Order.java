@@ -37,17 +37,24 @@ public class Order {
   @JsonSerialize(using = LocalDateSerializer.class)
   private LocalDate completionDate;
 
+  private int lastID = -1;
+
   public Order() {
     this.tasks = new ArrayList<>();
   }
 
-  public Order(int ID, String name, String customerName, String details, LocalDate completionDate) {
-    this.tasks = new ArrayList<>();
-    this.ID = ID;
+  public Order(String name, String customerName, String details, LocalDate completionDate) {
+    this();
     setName(name);
     setCustomerName(customerName);
     setDetails(details);
     setCompletionDate(completionDate);
+  }
+
+  @Deprecated
+  public Order(int ID, String name, String customerName, String details, LocalDate completionDate) {
+    this(name, customerName, details, completionDate);
+    this.ID = ID;
   }
 
   @JsonProperty("ID")
@@ -114,16 +121,17 @@ public class Order {
     }
   }
 
+  @Deprecated
   public void addTask(String name, String details, int daysBefore) {
-    // Find largest ID
-    int largestID = -1;
-    for (Task task : tasks) {
-      if (task.getID() > largestID) {
-        largestID = task.getID();
-      }
-    }
+    addTask(new Task(name, details, daysBefore));
+  }
 
-    tasks.add(new Task(largestID + 1, ID, name, details, completionDate, daysBefore));
+  public void addTask(Task task) {
+    task.setID(lastID++);
+    task.setParentID(ID);
+    task.setOrderCompletionDate(completionDate);
+
+    tasks.add(task);
   }
 
   public Task findTaskByID(int ID) {

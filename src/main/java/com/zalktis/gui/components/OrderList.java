@@ -30,6 +30,6 @@ public class OrderList extends ObjectList {
 
   @FXML
   private void onClickAddOrder() {
-    new AddOrderDialog().showAndWait().ifPresent(result -> getFileSystem().addOrder(result.get(0), result.get(1), result.get(3), LocalDate.parse(result.get(2))));
+    new AddOrderDialog().showAndWait().ifPresent(getFileSystem()::addOrder);
   }
 }

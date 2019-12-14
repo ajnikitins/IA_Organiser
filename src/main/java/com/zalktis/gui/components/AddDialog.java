@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-public abstract class AddDialog extends Dialog<List<String>> {
+public abstract class AddDialog<T> extends Dialog<T> {
 
   private Button confirmButton;
 

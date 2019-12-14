@@ -5,6 +5,7 @@
 package com.zalktis.gui.components;
 
 import com.zalktis.file.obj.Order;
+import com.zalktis.file.obj.Task;
 import com.zalktis.file.util.TimeMachine;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class AddTaskDialog extends AddDialog {
+public class AddTaskDialog extends AddDialog<Task> {
 
   private Order order;
 
@@ -34,12 +35,7 @@ public class AddTaskDialog extends AddDialog {
 
     setResultConverter(dialogButtonType -> {
       if (dialogButtonType == ButtonType.OK) {
-        List<String> result = new ArrayList<>();
-        result.add(taskNameField.getText());
-        result.add(daysSpinner.getValue().toString());
-        result.add(detailsArea.getText());
-
-        return result;
+        return new Task(taskNameField.getText(), detailsArea.getText(), daysSpinner.getValue());
       }
       return null;
     });

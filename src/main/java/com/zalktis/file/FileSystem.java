@@ -40,6 +40,8 @@ public class FileSystem {
     this.onChange = onChange;
   }
 
+  public int lastID;
+
   public List<Task> getTasks() {
     ArrayList<Task> tasks = new ArrayList<>();
 
@@ -68,24 +70,26 @@ public class FileSystem {
     return orders.stream().sorted(Comparator.comparing(Order::getCompletionDate)).collect(Collectors.toList());
   }
 
-  public void addOrder(String name, String customerName, String details, LocalDate completionDate) {
-    int largestID = -1;
-    for (Order order : orders) {
-      if (order.getID() > largestID) {
-        largestID = order.getID();
-      }
-    }
-
-    Order order = new Order(largestID + 1, name, customerName, details, completionDate);
+  public void addOrder(Order order) {
+    order.setID(lastID++);
     orders.add(order);
 
     onChange.run();
   }
 
-  public void addTask(int ID, String name, String details, int daysBefore) {
-    findOrderByID(ID).addTask(name, details, daysBefore);
+  @Deprecated
+  public void addOrder(String name, String customerName, String details, LocalDate completionDate) {
+    addOrder(new Order(name, customerName, details, completionDate));
+  }
 
+  public void addTask(int parentID, Task task) {
+    findOrderByID(parentID).addTask(task);
     onChange.run();
+  }
+
+  @Deprecated
+  public void addTask(int parentID, String name, String details, int daysBefore) {
+    addTask(parentID, new Task(name, details, daysBefore));
   }
 
   public Order findOrderByID(int ID) {

@@ -26,7 +26,7 @@ public class OrderPane extends TitledPane {
     setGraphic(new OrderPaneTitle(order.getName(), order.getCompletionDate().toString(), onClickComplete, onClickEdit));
 
     Button addTaskButton = new Button("Add Task");
-    addTaskButton.setOnAction((e) -> new AddTaskDialog(order).showAndWait().ifPresent((result) -> fileSystem.addTask(order.getID(), result.get(0), result.get(2), Integer.parseInt(result.get(1)))));
+    addTaskButton.setOnAction((e) -> new AddTaskDialog(order).showAndWait().ifPresent((result) -> fileSystem.addTask(order.getID(), result)));
 
     TaskList taskList = new TaskList(order);
     taskList.setFileSystem(fileSystem);

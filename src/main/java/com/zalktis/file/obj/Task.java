@@ -40,13 +40,18 @@ public class Task {
 
   public Task() {}
 
-  public Task(int ID, int parentID, String name, String details, LocalDate orderCompletionDate, int daysBeforeOrder) {
-    this.ID = ID;
-    this.parentID = parentID;
+  public Task(String name, String details, int daysBeforeOrder) {
     setName(name);
     setDetails(details);
-    setOrderCompletionDate(orderCompletionDate);
     setDaysBeforeOrder(daysBeforeOrder);
+  }
+
+  @Deprecated
+  public Task(int ID, int parentID, String name, String details, LocalDate orderCompletionDate, int daysBeforeOrder) {
+    this(name, details, daysBeforeOrder);
+    setID(ID);
+    setParentID(parentID);
+    setOrderCompletionDate(orderCompletionDate);
   }
 
   @JsonProperty("ID")
@@ -82,6 +87,16 @@ public class Task {
   @JsonProperty("completionDate")
   public LocalDate getCompletionDate() {
     return completionDate;
+  }
+
+  @JsonProperty("ID")
+  public void setID(int ID) {
+    this.ID = ID;
+  }
+
+  @JsonProperty("parentID")
+  public void setParentID(int parentID) {
+    this.parentID = parentID;
   }
 
   @JsonProperty("name")

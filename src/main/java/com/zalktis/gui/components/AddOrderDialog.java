@@ -4,6 +4,7 @@
 
 package com.zalktis.gui.components;
 
+import com.zalktis.file.obj.Order;
 import com.zalktis.file.util.TimeMachine;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class AddOrderDialog extends AddDialog {
+public class AddOrderDialog extends AddDialog<Order> {
 
   private TextField orderNameField;
   private TextField customerNameField;
@@ -29,13 +30,7 @@ public class AddOrderDialog extends AddDialog {
 
     setResultConverter(dialogButtonType -> {
       if (dialogButtonType == ButtonType.OK) {
-        List<String> result = new ArrayList<>();
-        result.add(orderNameField.getText());
-        result.add(customerNameField.getText());
-        result.add(completionDatePicker.getValue().toString());
-        result.add(detailsArea.getText());
-
-        return result;
+        return new Order(orderNameField.getText(), customerNameField.getText(), detailsArea.getText(), completionDatePicker.getValue());
       }
       return null;
     });
