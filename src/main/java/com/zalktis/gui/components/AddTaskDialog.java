@@ -41,6 +41,16 @@ public class AddTaskDialog extends AddDialog<Task> {
     });
   }
 
+  public AddTaskDialog(Order order, Task task) {
+    this(order);
+
+    setTitle("Edit a task");
+
+    taskNameField.setText(task.getName());
+    daysSpinner.getValueFactory().setValue(task.getDaysBeforeOrder());
+    detailsArea.setText(task.getDetails());
+  }
+
   public void setupUI() {
     setTitle("Add a new task");
 

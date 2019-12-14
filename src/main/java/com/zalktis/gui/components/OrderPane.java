@@ -19,9 +19,7 @@ public class OrderPane extends TitledPane {
 
     Runnable onClickComplete = () -> fileSystem.removeOrder(order.getID());
 
-    Runnable onClickEdit = () -> {
-      // TODO: Finish this
-    };
+    Runnable onClickEdit = () -> new AddOrderDialog(order).showAndWait().ifPresent(fileSystem::updateOrder);
 
     setGraphic(new OrderPaneTitle(order.getName(), order.getCompletionDate().toString(), onClickComplete, onClickEdit));
 

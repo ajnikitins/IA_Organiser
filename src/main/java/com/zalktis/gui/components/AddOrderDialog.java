@@ -36,6 +36,28 @@ public class AddOrderDialog extends AddDialog<Order> {
     });
   }
 
+  public AddOrderDialog(Order order) {
+    this();
+    setTitle("Edit an order");
+
+    orderNameField.setText(order.getName());
+    customerNameField.setText(order.getCustomerName());
+    completionDatePicker.setValue(order.getCompletionDate());
+    detailsArea.setText(order.getDetails());
+
+    setResultConverter(dialogButtonType -> {
+      if (dialogButtonType == ButtonType.OK) {
+        order.setName(orderNameField.getText());
+        order.setCustomerName(customerNameField.getText());
+        order.setCompletionDate(completionDatePicker.getValue());
+        order.setDetails(detailsArea.getText());
+
+        return order;
+      }
+      return null;
+    });
+  }
+
   public void setupUI() {
     setTitle("Add a new order");
 

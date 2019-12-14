@@ -14,9 +14,7 @@ public class TaskPane extends TitledPane {
 
     Runnable onClickComplete = () -> fileSystem.removeTask(task.getParentID(), task.getID());
 
-    Runnable onClickEdit = () -> {
-      // TODO: Finish this
-    };
+    Runnable onClickEdit = () -> new AddTaskDialog(fileSystem.findOrderByID(task.getParentID()), task).showAndWait().ifPresent(fileSystem::updateTask);
 
     setGraphic(new TaskPaneTitle(task.getName(), task.getCompletionDate().toString(), task.getDaysBeforeOrder(), onClickComplete, onClickEdit));
 
