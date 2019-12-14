@@ -19,8 +19,7 @@ public class ImminentTaskList extends ObjectList {
   @Override
   public void createObjectList() {
     for (Task task : getFileSystem().getImminentTasks()) {
-      getObjectAccordion().getPanes().add(new ImminentTaskPane(task, getFileSystem().findOrderByID(task.getParentID()),
-          onTitleClick));
+      getObjectAccordion().getPanes().add(new ImminentTaskPane(task, getFileSystem().findOrderByID(task.getParentID()), onTitleClick));
     }
   }
 }
