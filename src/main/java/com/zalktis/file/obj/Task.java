@@ -111,17 +111,22 @@ public class Task {
 
   @JsonProperty("orderCompletionDate")
   public void setOrderCompletionDate(LocalDate orderCompletionDate) {
-    if (TimeMachine.isHoliday(orderCompletionDate)) {
-      throw new HolidayException(String.format(HolidayException.DEFAULT_MESSAGE, orderCompletionDate));
+    if (daysBeforeOrder > -1) {
+      if (TimeMachine.isHoliday(orderCompletionDate)) {
+        throw new HolidayException(
+            String.format(HolidayException.DEFAULT_MESSAGE, orderCompletionDate));
+      }
+      calculateCompletionDate(orderCompletionDate, daysBeforeOrder);
+      this.orderCompletionDate = orderCompletionDate;
     }
-    calculateCompletionDate(orderCompletionDate, daysBeforeOrder);
-    this.orderCompletionDate = orderCompletionDate;
   }
 
   @JsonProperty("daysBeforeOrder")
   public void setDaysBeforeOrder(int daysBeforeOrder) {
-    calculateCompletionDate(orderCompletionDate, daysBeforeOrder);
-    this.daysBeforeOrder = daysBeforeOrder;
+    if (orderCompletionDate != null) {
+      calculateCompletionDate(orderCompletionDate, daysBeforeOrder);
+      this.daysBeforeOrder = daysBeforeOrder;
+    }
   }
 
   private void calculateCompletionDate(LocalDate orderCompletionDate, int daysBeforeOrder) {
