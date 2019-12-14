@@ -37,6 +37,7 @@ public abstract class ObjectList extends VBox {
 
   public void setFileSystem(FileSystem fileSystem) {
     this.fileSystem = fileSystem;
+    update();
   }
 
   public void update() {
