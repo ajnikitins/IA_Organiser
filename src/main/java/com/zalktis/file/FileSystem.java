@@ -1,5 +1,6 @@
 package com.zalktis.file;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zalktis.file.obj.Order;
 import com.zalktis.file.obj.Task;
@@ -18,6 +19,7 @@ public class FileSystem {
   @JsonProperty("orders")
   private List<Order> orders;
 
+  @JsonIgnore
   private Runnable onChange;
 
   public FileSystem() {

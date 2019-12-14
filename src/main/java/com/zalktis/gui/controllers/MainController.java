@@ -41,6 +41,7 @@ public class MainController implements Initializable {
     fileSystem.setOnChange(() -> {
       imminentTaskList.update();
       orderList.update();
+      fileSystem.save(fileSystem);
     });
     imminentTaskList.setFileSystem(fileSystem);
     orderList.setFileSystem(fileSystem);
