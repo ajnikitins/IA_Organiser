@@ -125,8 +125,8 @@ public class Task {
   public void setDaysBeforeOrder(int daysBeforeOrder) {
     if (orderCompletionDate != null) {
       calculateCompletionDate(orderCompletionDate, daysBeforeOrder);
-      this.daysBeforeOrder = daysBeforeOrder;
     }
+    this.daysBeforeOrder = daysBeforeOrder;
   }
 
   private void calculateCompletionDate(LocalDate orderCompletionDate, int daysBeforeOrder) {
