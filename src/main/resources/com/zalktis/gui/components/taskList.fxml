@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <fx:root prefWidth="600.0" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-  <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-    <Accordion fx:id="objectAccordion" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="597.0"/>
+  <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="100.0">
+    <Accordion fx:id="objectAccordion" />
   </ScrollPane>
 </fx:root>
