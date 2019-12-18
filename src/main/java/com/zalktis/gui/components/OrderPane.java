@@ -21,7 +21,9 @@ public class OrderPane extends TitledPane {
 
     Runnable onClickEdit = () -> new AddOrderDialog(order).showAndWait().ifPresent(fileSystem::updateOrder);
 
-    setGraphic(new OrderPaneTitle(order.getName(), order.getCompletionDate().toString(), onClickComplete, onClickEdit));
+    OrderPaneTitle orderPaneTitle = new OrderPaneTitle(order.getName(), order.getCompletionDate().toString(), onClickComplete, onClickEdit);
+    orderPaneTitle.prefWidthProperty().bind(widthProperty().subtract(35));
+    setGraphic(orderPaneTitle);
 
     Button addTaskButton = new Button("Add Task");
     addTaskButton.setOnAction((e) -> new AddTaskDialog(order).showAndWait().ifPresent((result) -> fileSystem.addTask(order.getID(), result)));

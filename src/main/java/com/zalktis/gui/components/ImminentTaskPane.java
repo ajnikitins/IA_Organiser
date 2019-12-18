@@ -7,14 +7,14 @@ import com.zalktis.file.obj.Task;
 import java.util.function.Consumer;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
 
 public class ImminentTaskPane extends TitledPane {
 
   public ImminentTaskPane(Task task, Order order, Consumer<Order> onTitleClick) {
     super();
 
-    HBox titleBox = new HBox();
+    BorderPane titleBox = new BorderPane();
     Label taskNameLabel = new Label(task.getName());
     Label taskDetailLabel = new Label(task.getDetails());
 
@@ -23,7 +23,10 @@ public class ImminentTaskPane extends TitledPane {
 
     orderNameLabel.setOnMouseClicked((e) -> onTitleClick.accept(order));
 
-    titleBox.getChildren().addAll(taskNameLabel, orderNameLabel);
+    titleBox.setLeft(taskNameLabel);
+    titleBox.setCenter(orderNameLabel);
+
+    titleBox.prefWidthProperty().bind(widthProperty().subtract(34));
 
     setGraphic(titleBox);
     setContent(taskDetailLabel);

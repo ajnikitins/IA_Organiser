@@ -43,13 +43,14 @@ public class MainController implements Initializable {
       orderList.update();
       fileSystem.save(fileSystem);
     });
-    imminentTaskList.setFileSystem(fileSystem);
-    orderList.setFileSystem(fileSystem);
 
     imminentTaskList.setOnTitleClick(order -> {
       mainPane.getSelectionModel().select(1);
       orderList.findOrderPaneByID(order.getID()).setExpanded(true);
     });
+
+    imminentTaskList.setFileSystem(fileSystem);
+    orderList.setFileSystem(fileSystem);
 
     mainPane.tabMinWidthProperty().bind(mainPane.widthProperty().divide(mainPane.getTabs().size()).subtract(20));
   }

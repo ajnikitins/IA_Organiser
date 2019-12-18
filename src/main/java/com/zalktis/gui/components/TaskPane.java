@@ -16,7 +16,9 @@ public class TaskPane extends TitledPane {
 
     Runnable onClickEdit = () -> new AddTaskDialog(fileSystem.findOrderByID(task.getParentID()), task).showAndWait().ifPresent(fileSystem::updateTask);
 
-    setGraphic(new TaskPaneTitle(task.getName(), task.getCompletionDate().toString(), task.getDaysBeforeOrder(), onClickComplete, onClickEdit));
+    TaskPaneTitle taskPaneTitle = new TaskPaneTitle(task.getName(), task.getCompletionDate().toString(), task.getDaysBeforeOrder(), onClickComplete, onClickEdit);
+    taskPaneTitle.prefWidthProperty().bind(widthProperty().subtract(50));
+    setGraphic(taskPaneTitle);
 
     setContent(new Label(task.getDetails()));
   }
