@@ -11,19 +11,24 @@ import com.organiser.file.util.TimeMachine;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class IOHandlerTest {
 
   private static final String PATH_NAME = System.getProperty("user.home")  + "\\AppData\\Roaming\\Organiser\\test.json";
 
-  @Test
-  void loadObjectNonExistentFile() {
+  @BeforeEach
+  void setUp() {
     try {
       Files.deleteIfExists(Paths.get(PATH_NAME));
     } catch (IOException e) {
       fail("Unexpected IO Exception");
     }
+  }
+
+  @Test
+  void loadObjectNonExistentFile() {
     var system = IOHandler.loadObject(PATH_NAME, FileSystem.class);
     assertEquals(new FileSystem(), system);
   }
