@@ -4,11 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.organiser.file.obj.Order;
 import com.organiser.file.obj.Task;
-import com.organiser.file.util.Search;
 import com.organiser.file.util.TimeMachine;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class FileSystem {
@@ -16,7 +17,7 @@ public class FileSystem {
   private static final String PATH_NAME = System.getProperty("user.home")  + "\\AppData\\Roaming\\Organiser\\save.json";
 
   @JsonProperty("orders")
-  private List<Order> orders;
+  private Map<Integer, Order> orders;
 
   @JsonProperty("currentID")
   private int currentID = 0;
@@ -25,38 +26,31 @@ public class FileSystem {
   private Runnable onChange;
 
   public FileSystem() {
-    this.orders = new LinkedList<>();
+    this.orders = new TreeMap<>();
     this.onChange = () -> {};
   }
 
   @JsonProperty("orders")
-  public List<Order> getOrders() {
+  public Map<Integer, Order> getOrders() {
     return orders;
   }
 
+  @JsonIgnore
   public Runnable getOnChange() {
     return onChange;
   }
 
+  @JsonIgnore
   public void setOnChange(Runnable onChange) {
     this.onChange = onChange;
   }
 
-  public List<Task> getTasks() {
-    List<Task> tasks = new LinkedList<>();
-
-    for (Order order : orders) {
-      tasks.addAll(order.getTasks());
-    }
-
-    return tasks;
-  }
-
+  @JsonIgnore
   public List<Task> getImminentTasks() {
     List<Task> tasks = new LinkedList<>();
 
-    for (Order order : orders) {
-      for (Task task : order.getTasks()) {
+    for (Order order : orders.values()) {
+      for (Task task : order.getTasks().values()) {
         if (TimeMachine.now().isEqual(task.getCompletionDate())) {
           tasks.add(task);
         }
@@ -66,23 +60,25 @@ public class FileSystem {
     return tasks;
   }
 
+  @JsonIgnore
   public List<Order> getSortedOrders() {
-    return orders.stream().sorted(Comparator.comparing(Order::getCompletionDate)).collect(Collectors.toList());
+    return orders.values().stream().sorted(Comparator.comparing(Order::getCompletionDate)).collect(Collectors.toList());
   }
 
   public void addOrder(Order order) {
-    order.setID(currentID++);
-    orders.add(order);
+    order.setID(currentID);
+    orders.put(currentID, order);
+    currentID++;
 
     onChange.run();
   }
 
   public Order findOrderByID(int ID) {
-    return Search.binaryWithID(orders, ID);
+    return orders.get(ID);
   }
 
   public void removeOrder(int ID) {
-    orders.remove(findOrderByID(ID));
+    orders.remove(ID);
 
     onChange.run();
   }

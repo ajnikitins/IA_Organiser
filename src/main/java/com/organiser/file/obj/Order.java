@@ -9,12 +9,12 @@ import com.organiser.file.exceptions.HolidayException;
 import com.organiser.file.interfaces.IDable;
 import com.organiser.file.util.LocalDateDeserializer;
 import com.organiser.file.util.LocalDateSerializer;
-import com.organiser.file.util.Search;
 import com.organiser.file.util.TimeMachine;
 import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /**
@@ -27,7 +27,7 @@ public class Order implements IDable {
   private int ID;
 
   @JsonProperty("tasks")
-  private List<Task> tasks;
+  private Map<Integer, Task> tasks;
 
   @JsonProperty("name")
   private String name;
@@ -54,7 +54,7 @@ public class Order implements IDable {
    * {@link #Order(String, String, String, LocalDate)}
    */
   public Order() {
-    this.tasks = new LinkedList<>();
+    this.tasks = new TreeMap<>();
     this.onChange = () -> {};
   }
 
@@ -80,7 +80,7 @@ public class Order implements IDable {
   }
 
   @JsonProperty("tasks")
-  public List<Task> getTasks() {
+  public Map<Integer, Task> getTasks() {
     return tasks;
   }
 
@@ -109,6 +109,7 @@ public class Order implements IDable {
     return currentID;
   }
 
+  @JsonIgnore
   public Runnable getOnChange() {
     return onChange;
   }
@@ -138,6 +139,7 @@ public class Order implements IDable {
     this.currentID = currentID;
   }
 
+  @JsonIgnore
   public void setOnChange(Runnable onChange) {
     this.onChange = onChange;
   }
@@ -161,7 +163,7 @@ public class Order implements IDable {
       throw new HolidayException(String.format(HolidayException.DEFAULT_MESSAGE, completionDate));
     } else {
       this.completionDate = completionDate;
-      for (Task task: tasks) {
+      for (Task task: tasks.values()) {
         task.setOrderCompletionDate(completionDate);
       }
     }
@@ -174,11 +176,12 @@ public class Order implements IDable {
    * @param task task to be added
    */
   public void addTask(Task task) {
-    task.setID(currentID++);
+    task.setID(currentID);
     task.setParentID(ID);
     task.setOrderCompletionDate(completionDate);
+    tasks.put(currentID, task);
+    currentID++;
 
-    tasks.add(task);
     onChange.run();
   }
 
@@ -189,7 +192,7 @@ public class Order implements IDable {
    * @return a {@link Task} instance if one is found, null if there is no task with the given ID
    */
   public Task findTaskByID(int ID) {
-    return Search.binaryWithID(tasks, ID);
+    return tasks.get(ID);
   }
 
   /**
@@ -199,7 +202,7 @@ public class Order implements IDable {
    * @return sorted task list
    */
   public List<Task> getSortedTasks() {
-    return tasks.stream().sorted(Comparator.comparing(Task::getCompletionDate)).collect(Collectors.toList());
+    return tasks.values().stream().sorted(Comparator.comparing(Task::getCompletionDate)).collect(Collectors.toList());
   }
 
   /**
@@ -208,7 +211,7 @@ public class Order implements IDable {
    * @param ID ID of task to be removed
    */
   public void removeTask(int ID) {
-    tasks.remove(findTaskByID(ID));
+    tasks.remove(ID);
     onChange.run();
   }
 
