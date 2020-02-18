@@ -61,16 +61,6 @@ class FileSystemTest {
     assertEquals(0, fileSystem.getOrders().size());
   }
 
-  @Test
-  void removeTask() {
-    Order order = new Order("Ad page", "Latv. val", "none", TimeMachine.now().plusDays(7));
-    fileSystem.addOrder(order);
-    order.addTask(new Task("Order forms", "1x1", 4));
-
-    order.removeTask(0);
-    assertEquals(0, fileSystem.getTasks().size());
-  }
-
   @AfterEach
   void tearDown() {
     TimeMachine.useSystemDefaultZoneClock();
