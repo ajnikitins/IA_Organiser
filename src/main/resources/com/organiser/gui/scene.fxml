@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.organiser.gui.components.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.organiser.gui.controllers.MainController">
+  <HBox alignment="CENTER">
+    <Label alignment="CENTER" text="Today is: " textAlignment="CENTER">
+      <font>
+        <Font name="System Bold" size="24.0"/>
+      </font>
+    </Label>
+    <Label fx:id="dateLabel" alignment="CENTER" textAlignment="CENTER">
+      <font>
+        <Font name="System Bold" size="24.0"/>
+      </font>
+    </Label>
+  </HBox>
+  <TabPane id="mainPane" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" tabClosingPolicy="UNAVAILABLE" tabMinWidth="280.0">
+    <Tab text="Imminent Tasks">
+      <ImminentTaskList fx:id="imminentTaskList"/>
+    </Tab>
+    <Tab id="orderList" text="All Orders">
+      <OrderList fx:id="orderList"/>
+    </Tab>
+  </TabPane>
+</VBox>

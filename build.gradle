@@ -19,7 +19,7 @@ dependencies {
 sourceCompatibility = 1.11
 
 javafx {
-    version = "13"
+    version = "11"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
@@ -27,11 +27,11 @@ test {
     useJUnitPlatform()
 }
 
-mainClassName = 'com.zalktis.main.Main'
+mainClassName = 'com.organiser.main.Main'
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.zalktis.main.Main'
+        attributes 'Main-Class': '$mainClassName'
     }
     from {
         configurations.runtimeClasspath.collect {
