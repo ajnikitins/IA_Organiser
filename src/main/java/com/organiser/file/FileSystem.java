@@ -17,7 +17,7 @@ public class FileSystem {
   private static final String PATH_NAME = System.getProperty("user.home")  + "\\AppData\\Roaming\\Organiser\\save.json";
 
   @JsonProperty("orders")
-  private Map<Integer, Order> orders;
+  private final Map<Integer, Order> orders;
 
   @JsonProperty("currentID")
   private int currentID = 0;

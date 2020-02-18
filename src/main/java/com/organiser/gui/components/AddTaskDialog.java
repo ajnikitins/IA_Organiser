@@ -6,7 +6,6 @@ package com.organiser.gui.components;
 
 import com.organiser.file.obj.Order;
 import com.organiser.file.obj.Task;
-import com.organiser.file.util.TimeMachine;
 import java.util.LinkedList;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -19,7 +18,7 @@ import javafx.scene.control.TextField;
 
 public class AddTaskDialog extends AddDialog<Task> {
 
-  private Order order;
+  private final Order order;
 
   private TextField taskNameField;
   private Spinner<Integer> daysSpinner;

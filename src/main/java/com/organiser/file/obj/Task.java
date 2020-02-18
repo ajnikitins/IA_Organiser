@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.organiser.file.exceptions.DateBeforeTodayException;
 import com.organiser.file.exceptions.HolidayException;
-import com.organiser.file.interfaces.IDable;
 import com.organiser.file.util.LocalDateDeserializer;
 import com.organiser.file.util.LocalDateSerializer;
 import com.organiser.file.util.TimeMachine;
@@ -14,7 +13,7 @@ import java.time.LocalDate;
 /**
  * Container for all information specific to a single task.
  */
-public class Task implements IDable {
+public class Task {
 
   @JsonProperty("ID")
   private int ID;

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.organiser.file.exceptions.DateBeforeTodayException;
 import com.organiser.file.exceptions.HolidayException;
-import com.organiser.file.interfaces.IDable;
 import com.organiser.file.util.LocalDateDeserializer;
 import com.organiser.file.util.LocalDateSerializer;
 import com.organiser.file.util.TimeMachine;
@@ -21,13 +20,13 @@ import java.util.stream.Collectors;
  * Container for all information specific to a single order.
  * Also has methods to manipulate with the tasks for this order.
  */
-public class Order implements IDable {
+public class Order {
 
   @JsonProperty("ID")
   private int ID;
 
   @JsonProperty("tasks")
-  private Map<Integer, Task> tasks;
+  private final Map<Integer, Task> tasks;
 
   @JsonProperty("name")
   private String name;

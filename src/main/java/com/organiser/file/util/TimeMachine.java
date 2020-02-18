@@ -22,7 +22,7 @@ import java.util.Arrays;
 public class TimeMachine {
 
   private static Clock clock = Clock.systemDefaultZone();
-  private static ZoneId zoneId = ZoneId.systemDefault();
+  private static final ZoneId zoneId = ZoneId.systemDefault();
 
   private TimeMachine() {}
 

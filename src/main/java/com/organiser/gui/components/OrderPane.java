@@ -18,8 +18,8 @@ import javafx.scene.layout.VBox;
 
 public class OrderPane extends TitledPane {
 
-  private Order order;
-  private FileSystem fileSystem;
+  private final Order order;
+  private final FileSystem fileSystem;
 
   public OrderPane(FileSystem fileSystem, Order order) {
     this.order = order;

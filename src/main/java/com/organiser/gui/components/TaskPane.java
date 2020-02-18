@@ -17,8 +17,8 @@ import javafx.scene.layout.BorderPane;
 
 public class TaskPane extends TitledPane {
 
-  private Task task;
-  private Order order;
+  private final Task task;
+  private final Order order;
 
   public TaskPane(Order order, Task task) {
     this.task = task;

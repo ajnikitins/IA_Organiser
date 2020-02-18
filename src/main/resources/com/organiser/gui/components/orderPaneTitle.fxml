@@ -12,11 +12,9 @@
       <Label fx:id="orderNameLabel" text="Order name" BorderPane.alignment="CENTER_LEFT" />
    </left>
    <right>
-      <HBox BorderPane.alignment="CENTER_RIGHT">
-         <children>
-            <Button fx:id="completeButton" mnemonicParsing="false" onAction="#onClickCompleteButton" />
-            <Button fx:id="editButton" mnemonicParsing="false" onAction="#onClickEditButton" />
-         </children>
-      </HBox>
+     <HBox BorderPane.alignment="CENTER_RIGHT">
+       <Button fx:id="completeButton" mnemonicParsing="false" onAction="#onClickCompleteButton"/>
+       <Button fx:id="editButton" mnemonicParsing="false" onAction="#onClickEditButton"/>
+     </HBox>
    </right>
 </fx:root>

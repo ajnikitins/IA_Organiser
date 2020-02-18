@@ -5,7 +5,7 @@ import com.organiser.file.obj.Task;
 
 public class TaskList extends ObjectList {
 
-  private Order order;
+  private final Order order;
 
   public TaskList(Order order) {
     super("taskList.fxml");
