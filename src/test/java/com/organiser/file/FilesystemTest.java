@@ -12,21 +12,21 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class FileSystemTest {
+class FilesystemTest {
 
   private static final LocalDate LOCAL_DATE = LocalDate.of(2020, 12, 14);
 
-  private FileSystem fileSystem;
+  private Filesystem fileSystem;
 
   @BeforeEach
   void setUp() {
     TimeMachine.useFixedClockAt(LOCAL_DATE);
-    fileSystem = new FileSystem();
+    fileSystem = new Filesystem();
   }
 
   @Test
   void load() {
-    fileSystem = FileSystem.load();
+    fileSystem = Filesystem.load();
     assertNotNull(fileSystem);
   }
 
@@ -47,10 +47,13 @@ class FileSystemTest {
 
   @Test
   void getSortedOrders() {
-    fileSystem.addOrder(new Order("Ad page", "Latv. val", "none", TimeMachine.now().plusDays(7)));
-    fileSystem.addOrder(new Order("Notebooks", "VELVE", "Red and blue", TimeMachine.now().plusDays(4)));
+    fileSystem.addOrder(new Order(
+        "Ad page", "Latv. val", "none", TimeMachine.now().plusDays(7)));
+    fileSystem.addOrder(new Order(
+        "Notebooks", "VELVE", "Red and blue", TimeMachine.now().plusDays(4)));
 
-    assertTrue(fileSystem.getSortedOrders().get(0).getCompletionDate().isBefore(fileSystem.getSortedOrders().get(1).getCompletionDate()));
+    assertTrue(fileSystem.getSortedOrders().get(0).getCompletionDate()
+        .isBefore(fileSystem.getSortedOrders().get(1).getCompletionDate()));
   }
 
   @Test

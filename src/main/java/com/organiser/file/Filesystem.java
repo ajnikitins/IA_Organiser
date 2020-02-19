@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class FileSystem {
+public class Filesystem {
 
   private static final String PATH_NAME = System.getProperty("user.home")  + "\\AppData\\Roaming\\Organiser\\save.json";
 
@@ -25,7 +25,7 @@ public class FileSystem {
   @JsonIgnore
   private Runnable onChange;
 
-  public FileSystem() {
+  public Filesystem() {
     this.orders = new TreeMap<>();
     this.onChange = () -> {};
   }
@@ -83,8 +83,8 @@ public class FileSystem {
     onChange.run();
   }
 
-  public static FileSystem load() {
-    return IOHandler.loadObject(PATH_NAME, FileSystem.class);
+  public static Filesystem load() {
+    return IOHandler.loadObject(PATH_NAME, Filesystem.class);
   }
 
   public void save() {
@@ -99,7 +99,7 @@ public class FileSystem {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FileSystem system = (FileSystem) o;
+    Filesystem system = (Filesystem) o;
     return orders.equals(system.orders);
   }
 }

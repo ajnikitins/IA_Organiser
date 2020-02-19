@@ -1,6 +1,6 @@
 package com.organiser.gui.components;
 
-import com.organiser.file.FileSystem;
+import com.organiser.file.Filesystem;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ public abstract class ObjectList extends VBox {
   @FXML
   private Accordion objectAccordion;
 
-  private FileSystem fileSystem;
+  private Filesystem fileSystem;
 
   public ObjectList(String fxmlName) {
     super();
@@ -31,11 +31,11 @@ public abstract class ObjectList extends VBox {
     return objectAccordion;
   }
 
-  public FileSystem getFileSystem() {
+  public Filesystem getFileSystem() {
     return fileSystem;
   }
 
-  public void setFileSystem(FileSystem fileSystem) {
+  public void setFileSystem(Filesystem fileSystem) {
     this.fileSystem = fileSystem;
     update();
   }

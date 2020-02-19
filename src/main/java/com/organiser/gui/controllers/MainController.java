@@ -2,7 +2,7 @@
 
 package com.organiser.gui.controllers;
 
-import com.organiser.file.FileSystem;
+import com.organiser.file.Filesystem;
 import com.organiser.file.util.TimeMachine;
 import com.organiser.gui.components.ImminentTaskList;
 import com.organiser.gui.components.OrderList;
@@ -47,7 +47,7 @@ public class MainController {
    * sets the callback for when a title of an imminent task pane is clicked on,
    * auto scales the tabs to equal size.
    *
-   * @see FileSystem
+   * @see Filesystem
    * @see ImminentTaskList
    * @see com.organiser.gui.components.ImminentTaskPane
    * @see OrderList
@@ -62,7 +62,7 @@ public class MainController {
     clock.play();
 
     // loading Filesystem
-    FileSystem fileSystem = FileSystem.load();
+    Filesystem fileSystem = Filesystem.load();
     fileSystem.setOnChange(() -> {
       imminentTaskList.update();
       orderList.update();

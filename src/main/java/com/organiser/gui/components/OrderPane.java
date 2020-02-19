@@ -3,7 +3,7 @@
 
 package com.organiser.gui.components;
 
-import com.organiser.file.FileSystem;
+import com.organiser.file.Filesystem;
 import com.organiser.file.obj.Order;
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -19,9 +19,9 @@ import javafx.scene.layout.VBox;
 public class OrderPane extends TitledPane {
 
   private final Order order;
-  private final FileSystem fileSystem;
+  private final Filesystem fileSystem;
 
-  public OrderPane(FileSystem fileSystem, Order order) {
+  public OrderPane(Filesystem fileSystem, Order order) {
     this.order = order;
     this.fileSystem = fileSystem;
 

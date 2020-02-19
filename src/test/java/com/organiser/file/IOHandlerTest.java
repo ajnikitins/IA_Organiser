@@ -29,17 +29,17 @@ class IOHandlerTest {
 
   @Test
   void loadObjectNonExistentFile() {
-    var system = IOHandler.loadObject(PATH_NAME, FileSystem.class);
-    assertEquals(new FileSystem(), system);
+    var system = IOHandler.loadObject(PATH_NAME, Filesystem.class);
+    assertEquals(new Filesystem(), system);
   }
 
   @Test
   void writeAndLoadObject() {
-    var fileSystem = new FileSystem();
+    var fileSystem = new Filesystem();
     Order order = new Order("Ad page", "Latv. val", "", TimeMachine.now().plusDays(10));
     fileSystem.addOrder(order);
     order.addTask(new Task("Print paper", "Many", 5));
     IOHandler.writeObject(PATH_NAME, fileSystem);
-    assertEquals(fileSystem, IOHandler.loadObject(PATH_NAME, FileSystem.class));
+    assertEquals(fileSystem, IOHandler.loadObject(PATH_NAME, Filesystem.class));
   }
 }
