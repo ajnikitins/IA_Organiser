@@ -3,12 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <fx:root type="BorderPane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <center>
     <javafx.scene.layout.HBox alignment="CENTER" spacing="5.0" BorderPane.alignment="CENTER">
-      <Label fx:id="completionDateLabel" text="Completion date" />
-      <Label fx:id="daysBeforeCompletionLabel" text="DayBefCom" />
+      <Label fx:id="orderNameLabel" onMouseClicked="#onClickOrderNameLabel" text="Order name" underline="true" />
     </javafx.scene.layout.HBox>
   </center>
   <left>
@@ -16,8 +14,8 @@
   </left>
   <right>
     <HBox BorderPane.alignment="CENTER_RIGHT">
-      <Button fx:id="completeButton" mnemonicParsing="false" onAction="#onClickCompleteButton"/>
-      <Button fx:id="editButton" mnemonicParsing="false" onAction="#onClickEditButton"/>
+      <Button fx:id="completeButton" mnemonicParsing="false" onAction="#onClickCompleteButton" />
+      <Button fx:id="editButton" mnemonicParsing="false" onAction="#onClickEditButton" />
     </HBox>
   </right>
 </fx:root>

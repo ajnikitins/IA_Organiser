@@ -4,31 +4,87 @@ package com.organiser.gui.components;
 
 import com.organiser.file.obj.Order;
 import com.organiser.file.obj.Task;
+import java.io.IOException;
 import java.util.function.Consumer;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 public class ImminentTaskPane extends TitledPane {
 
+  private final Task task;
+  private final Order order;
+  private final Consumer<Order> onTitleClick;
+
   public ImminentTaskPane(Task task, Order order, Consumer<Order> onTitleClick) {
     super();
 
-    BorderPane titleBox = new BorderPane();
-    Label taskNameLabel = new Label(task.getName());
-    Label taskDetailLabel = new Label(task.getDetails());
+    this.task = task;
+    this.order = order;
+    this.onTitleClick = onTitleClick;
 
-    Label orderNameLabel = new Label(order.getName());
-    orderNameLabel.setStyle("-fx-underline: true;");
+    var imminentTaskPaneTitle = new ImminentTaskPaneTitle();
+    imminentTaskPaneTitle.prefWidthProperty().bind(widthProperty().subtract(34));
+    setGraphic(imminentTaskPaneTitle);
 
-    orderNameLabel.setOnMouseClicked((e) -> onTitleClick.accept(order));
+    setContent(new Label(task.getDetails() + "Order details: " + order.getDetails()));
+  }
 
-    titleBox.setLeft(taskNameLabel);
-    titleBox.setCenter(orderNameLabel);
+  private class ImminentTaskPaneTitle extends BorderPane {
 
-    titleBox.prefWidthProperty().bind(widthProperty().subtract(34));
+    @FXML
+    Label taskNameLabel;
 
-    setGraphic(titleBox);
-    setContent(taskDetailLabel);
+    @FXML
+    Label orderNameLabel;
+
+    @FXML
+    Button completeButton;
+
+    @FXML
+    Button editButton;
+
+    public ImminentTaskPaneTitle() {
+      super();
+
+      try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("imminentTaskPaneTitle.fxml"));
+        loader.setController(this);
+        loader.setRoot(this);
+        loader.load();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+    @FXML
+    public void initialize() {
+      taskNameLabel.setText(task.getName());
+      orderNameLabel.setText(order.getName());
+
+      completeButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("paneComplete.png"))));
+      editButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("paneEdit.png"))));
+    }
+
+    @FXML
+    public void onClickOrderNameLabel() {
+      onTitleClick.accept(order);
+    }
+
+    @FXML
+    public void onClickCompleteButton() {
+      order.removeTask(task.getID());
+    }
+
+    @FXML
+    public void onClickEditButton() {
+      new AddTaskDialog(order, task).showAndWait();
+      order.getOnChange().run();
+    }
   }
 }
