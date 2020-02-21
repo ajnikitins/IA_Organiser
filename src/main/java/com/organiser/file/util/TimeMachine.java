@@ -52,11 +52,6 @@ public class TimeMachine {
     clock = Clock.systemDefaultZone();
   }
 
-  /**
-   * Gets the current set clock.
-   *
-   * @return current clock
-   */
   private static Clock getClock() {
     return clock ;
   }
