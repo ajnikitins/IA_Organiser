@@ -1,6 +1,6 @@
 // TODO: https://code.makery.ch/blog/javafx-dialogs-official/
-// TODO: https://www.flaticon.com/free-icon/tick_447147?term=check%20mark&page=1&position=1
-// TODO: https://www.flaticon.com/free-icon/delete_1214428?term=trash&page=1&position=3
+// TODO: https://www.flaticon.com/free-icon/tick_447147
+// TODO: https://www.flaticon.com/free-icon/delete_1214428
 
 package com.organiser.gui.components;
 

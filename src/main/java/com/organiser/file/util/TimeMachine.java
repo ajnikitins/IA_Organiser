@@ -1,4 +1,5 @@
 // TODO: https://stackoverflow.com/questions/24491260/mocking-time-in-java-8s-java-time-api
+// TODO: https://stackoverflow.com/questions/33942544/how-to-skip-weekends-while-adding-days-to-localdate-in-java-8
 // TODO: Move holidays to a different, configurable file
 
 package com.organiser.file.util;
