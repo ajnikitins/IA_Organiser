@@ -32,7 +32,7 @@ public class ImminentTaskPane extends TitledPane {
     imminentTaskPaneTitle.prefWidthProperty().bind(widthProperty().subtract(34));
     setGraphic(imminentTaskPaneTitle);
 
-    setContent(new Label(task.getDetails() + "Order details: " + order.getDetails()));
+    setContent(new Label(task.getDetails() + "\nOrder details: " + order.getDetails()));
   }
 
   private class ImminentTaskPaneTitle extends BorderPane {

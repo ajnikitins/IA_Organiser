@@ -31,7 +31,7 @@ mainClassName = 'com.organiser.main.Main'
 
 jar {
     manifest {
-        attributes 'Main-Class': '$mainClassName'
+        attributes 'Main-Class': mainClassName
     }
     from {
         configurations.runtimeClasspath.collect {
