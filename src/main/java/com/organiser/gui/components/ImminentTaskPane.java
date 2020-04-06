@@ -1,4 +1,4 @@
-// TODO: https://stackoverflow.com/questions/36386579/javafx-titledpane-click-event-only-for-title
+// https://stackoverflow.com/questions/36386579/javafx-titledpane-click-event-only-for-title
 
 package com.organiser.gui.components;
 

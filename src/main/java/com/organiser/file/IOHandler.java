@@ -1,5 +1,4 @@
 // https://geeksforgeeks.org/serialization-in-java
-// TODO: Forward exceptions upwards
 
 package com.organiser.file;
 

@@ -1,5 +1,3 @@
-//TODO: Comments copied from Java source
-
 package com.organiser.file.exceptions;
 
 /**

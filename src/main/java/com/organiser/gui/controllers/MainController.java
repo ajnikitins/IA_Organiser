@@ -1,4 +1,4 @@
-// TODO: https://stackoverflow.com/questions/9966136/javafx-periodic-background-task
+// https://stackoverflow.com/questions/9966136/javafx-periodic-background-task
 
 package com.organiser.gui.controllers;
 

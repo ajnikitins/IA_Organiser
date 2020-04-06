@@ -1,5 +1,5 @@
-// TODO: https://www.flaticon.com/free-icon/verified_907830?term=check%20mark&page=1&position=6
-// TODO: https://www.flaticon.com/free-icon/edit_1159633?term=pencil&page=1&position=1
+// https://www.flaticon.com/free-icon/verified_907830?term=check%20mark&page=1&position=6
+// https://www.flaticon.com/free-icon/edit_1159633?term=pencil&page=1&position=1
 
 package com.organiser.gui.components;
 

@@ -55,7 +55,6 @@ public class Task {
    * @param daysBeforeOrder date when order must be completed
    */
 
-  // TODO: Rewrite task adding and constructor to not use daysBeforeOrder in the constructor.
   public Task(String name, String details, int daysBeforeOrder) {
     setName(name);
     setDetails(details);

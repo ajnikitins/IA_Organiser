@@ -1,6 +1,6 @@
-// TODO: https://code.makery.ch/blog/javafx-dialogs-official/
-// TODO: https://www.flaticon.com/free-icon/tick_447147
-// TODO: https://www.flaticon.com/free-icon/delete_1214428
+// https://code.makery.ch/blog/javafx-dialogs-official/
+// https://www.flaticon.com/free-icon/tick_447147
+// https://www.flaticon.com/free-icon/delete_1214428
 
 package com.organiser.gui.components;
 
@@ -126,7 +126,7 @@ public class AddOrderDialog extends AddDialog<Order> {
     getConfirmButton().addEventFilter(ActionEvent.ACTION, event -> {
       boolean[] errors = Order.validateProperties(orderNameField.getText(), customerNameField.getText(), completionDatePicker.getValue());
       List<String> errorMessages = new LinkedList<>();
-      
+
       if (errors[0]) {
         errorMessages.add("An order name must be entered.");
       }
